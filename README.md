@@ -1,2 +1,2 @@
 # py-frontmatter
-To manipulate front matter
+To manipulate front matter (WIP)

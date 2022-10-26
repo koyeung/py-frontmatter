@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+* add `get` and `set` sub-commands
+
 ### Changed
 
 * revise github action workflow

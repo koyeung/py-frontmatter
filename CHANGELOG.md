@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+* revise github action workflow
+
 ## [0.1.0] - 2022-10-26
 
 ### Added

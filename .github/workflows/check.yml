@@ -60,9 +60,9 @@ jobs:
         # Run tox using py: The current Python version tox is using
         run: tox -e tests
 
-  publish:
+  build:
     needs: tests
-    name: Build and publish Python distribution to PYPI
+    name: Build distribution packages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

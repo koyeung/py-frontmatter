@@ -10,6 +10,7 @@ packages = [{include = "py_frontmatter", from = "src"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 "ruamel.yaml" = "^0.17.21"
+jsonpath-ng = "^1.5.3"
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.10.1"
@@ -55,4 +56,9 @@ good-names = ["i", "j", "k", "ex", "Run", "_", "fp"]
 disable = [
     "raw-checker-failed", "bad-inline-option", "locally-disabled", "file-ignored", "suppressed-message",
     "useless-suppression", "deprecated-pragma", "use-symbolic-message-instead",
-    "missing-module-docstring", "missing-function-docstring"]
+    "missing-module-docstring", "missing-function-docstring", "logging-fstring-interpolation",
+    "similarities",
+]
+
+[tool.mypy]
+ignore_missing_imports = true

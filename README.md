@@ -9,8 +9,8 @@ pip install py-frontmatter
 
 ## Usage
 
-```
-% cat note.md 
+Given text file:
+```markdown
 ---
 title: Hacker's note
 tags: [a, b]
@@ -19,8 +19,10 @@ tags: [a, b]
 text
 ```
 
+### Get or set whole section of front matter
+
 To retrieve front matter as JSON:
-```
+```commandline
 % frontmatter get note.md | jq
 {
   "title": "Hacker's note",
@@ -32,9 +34,38 @@ To retrieve front matter as JSON:
 ```
 
 To replace the front matter:
-```
+```commandline
 % echo '{"title": "My note", "tags": ["a", "b", "c"]}' | frontmatter set note.md 
-% cat ~/today/note.md 
+% cat note.md 
+---
+title: My note
+tags:
+- a
+- b
+- c
+---
+# header
+text
+```
+
+### Add or remove item from front matter
+
+```commandline
+% frontmatter add-item --jsonpath '$.tags' --item d note.md
+% cat note.md 
+---
+title: My note
+tags:
+- a
+- b
+- c
+- d
+---
+# header
+text
+%
+% frontmatter remove-item --jsonpath '$.tags' --item d note.md
+% cat note.md                                                 
 ---
 title: My note
 tags:

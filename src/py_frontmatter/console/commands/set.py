@@ -3,9 +3,10 @@ import json
 import sys
 from contextlib import closing
 
-from py_frontmatter.core import dump_document, load_document
+from py_frontmatter.core import load_document
 
 from .base_command import BaseCommand
+from .utils import overwrite_file
 
 
 class SetCommand(BaseCommand):
@@ -30,8 +31,6 @@ class SetCommand(BaseCommand):
             document = load_document(args.file)
             document.meta = meta
 
-            args.file.seek(0)
-            args.file.truncate()
-            dump_document(document, args.file)
+            overwrite_file(file=args.file, document=document)
 
         return 0

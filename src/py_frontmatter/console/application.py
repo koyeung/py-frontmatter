@@ -3,15 +3,16 @@ import logging
 
 from py_frontmatter import __version__
 
-from .commands import GetCommand, SetCommand
+from .commands import AddItemCommand, GetCommand, RemoveItemCommand, SetCommand
 
 LOGGER = logging.getLogger(__name__)
 _LOG_FORMAT = "%(asctime)s %(levelname)s %(name)s %(message)s"
 
-_COMMANDS = [GetCommand(), SetCommand()]
+_COMMANDS = [GetCommand(), SetCommand(), AddItemCommand(), RemoveItemCommand()]
 
 
 def main() -> int:
+
     logging.basicConfig(level=logging.INFO, format=_LOG_FORMAT)
 
     parser = argparse.ArgumentParser(description="Process YAML front matter.")

@@ -2,7 +2,7 @@
 name = "py-frontmatter"
 version = "0.1.0"
 description = "Manipulate YAML front matter."
-authors = ["King-On Yeung <koyeung@gmail.com>"]
+authors = ["YEUNG King On <koyeung@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.md"
 packages = [{include = "py_frontmatter", from = "src"}]

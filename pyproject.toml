@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "py-frontmatter"
-version = "0.1.0"
+version = "0.2.0"
 description = "Manipulate YAML front matter."
-authors = ["King-On Yeung <koyeung@gmail.com>"]
+authors = ["YEUNG King On <koyeung@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.md"
 packages = [{include = "py_frontmatter", from = "src"}]
@@ -24,6 +24,9 @@ docformatter = "^1.5.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+frontmatter = "py_frontmatter.console.application:main"
 
 [tool.isort]
 profile = "black"

@@ -6,7 +6,7 @@ from ruamel.yaml import YAML
 from .document import Document
 
 # regex pattern of document with yaml front matter
-DOC_PATTERN = r"((?P<frontmatter>---\n(.*\n)?)---\n)?(?P<content>.*)"
+DOC_PATTERN = r"((?P<frontmatter>---\n(.+?\n)?)---\n)?(?P<content>.*)"
 
 
 def _parse_text(text: str, /) -> Tuple[str, str]:
@@ -30,6 +30,17 @@ def _parse_text(text: str, /) -> Tuple[str, str]:
     ... hello world!'''
     >>> _parse_text(text)
     ('---\ntags: ["a", "b"]\n', 'hello world!')
+
+    Only extract front matter (first yaml document)
+    >>> text = '''\
+    ... ---
+    ... tags: ["a", "b"]
+    ... ---
+    ... content
+    ... ---
+    ... hello world!'''
+    >>> _parse_text(text)
+    ('---\ntags: ["a", "b"]\n', 'content\n---\nhello world!')
     """
     match = re.match(pattern=DOC_PATTERN, string=text, flags=re.DOTALL | re.MULTILINE)
 

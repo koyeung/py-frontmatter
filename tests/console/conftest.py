@@ -24,6 +24,23 @@ text
     return sample_file
 
 
+@pytest.fixture
+def sample_wo_tags(tmp_path: Path) -> Path:
+    full_content = """\
+---
+title: Hacker's note
+---
+# header
+text
+"""
+
+    sample_file = tmp_path / "sample.md"
+    with sample_file.open(mode="w") as file_:
+        file_.write(full_content)
+
+    return sample_file
+
+
 def run_console_script(name, *args):
     entry_point, *_ = entry_points(group="console_scripts", name=name)
     func = entry_point.load()

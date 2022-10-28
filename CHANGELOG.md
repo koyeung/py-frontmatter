@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+* add `add-item`, `remove-item` sub-commands
+* add `add-tag`, `remove-tag` sub-commands
+
 ## [0.2.0] - 2022-10-27
 
 ### Added

@@ -1,19 +1,21 @@
 import argparse
-import json
-import sys
+import logging
 from contextlib import closing
 
-from py_frontmatter.core import load_document
+from py_frontmatter.core import add_item, load_document
 
 from .base_command import BaseCommand
+from .constants import TAG_JSONPATH
 from .utils import overwrite_file
 
+LOGGER = logging.getLogger(__name__)
 
-class SetCommand(BaseCommand):
-    """Set front matter."""
 
-    name = "set"
-    description = "Set front matter from json input"
+class AddTagCommand(BaseCommand):
+    """Add tag in front matter."""
+
+    name = "add-tag"
+    description = "Add tag to document"
 
     def register(self, subparsers) -> argparse.ArgumentParser:
 
@@ -21,14 +23,15 @@ class SetCommand(BaseCommand):
         parser.add_argument(
             "file", type=argparse.FileType(mode="r+"), help="document file"
         )
+        parser.add_argument("--tag", type=str, help="tag to add", required=True)
         return parser
 
     def handle(self, args: argparse.Namespace) -> None:
 
-        meta = json.load(sys.stdin)
+        LOGGER.debug(f"{args=}")
 
         with closing(args.file):
-            document = load_document(args.file)
-            document.meta = meta
 
+            document = load_document(args.file)
+            document = add_item(document=document, jsonpath=TAG_JSONPATH, item=args.tag)
             overwrite_file(file=args.file, document=document)

@@ -35,8 +35,8 @@ To retrieve front matter as JSON:
 
 To replace the front matter:
 ```commandline
-% echo '{"title": "My note", "tags": ["a", "b", "c"]}' | frontmatter set note.md 
-% cat note.md 
+% echo '{"title": "My note", "tags": ["a", "b", "c"]}' | frontmatter set note.md
+% cat note.md
 ---
 title: My note
 tags:
@@ -52,7 +52,7 @@ text
 
 ```commandline
 % frontmatter add-item --jsonpath '$.tags' --item d note.md
-% cat note.md 
+% cat note.md
 ---
 title: My note
 tags:
@@ -65,7 +65,7 @@ tags:
 text
 %
 % frontmatter remove-item --jsonpath '$.tags' --item d note.md
-% cat note.md                                                 
+% cat note.md
 ---
 title: My note
 tags:
@@ -81,7 +81,7 @@ text
 
 ```commandline
 % frontmatter add-tag --tag d note.md
-% cat note.md 
+% cat note.md
 ---
 title: My note
 tags:
@@ -93,7 +93,7 @@ tags:
 # header
 text
 % frontmatter remove-tag --tag d note.md
-% cat note.md                           
+% cat note.md
 ---
 title: My note
 tags:

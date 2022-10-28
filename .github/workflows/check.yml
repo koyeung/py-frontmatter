@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        
+
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
@@ -21,9 +21,9 @@ jobs:
           python3 --version
           echo "tox: $(tox --version)"
           poetry --version
-          
+
       - run: tox -e lint
-  
+
   tests:
     needs: lint
     strategy:
@@ -37,7 +37,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-        
+
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
@@ -50,7 +50,7 @@ jobs:
           python3 --version
           echo "tox: $(tox --version)"
           poetry --version
-          
+
       - run: tox -e tests
         # Run tox using py: The current Python version tox is using
 

@@ -12,7 +12,6 @@ _COMMANDS = [GetCommand(), SetCommand(), AddItemCommand(), RemoveItemCommand()]
 
 
 def main() -> int:
-
     logging.basicConfig(level=logging.INFO, format=_LOG_FORMAT)
 
     parser = argparse.ArgumentParser(description="Process YAML front matter.")

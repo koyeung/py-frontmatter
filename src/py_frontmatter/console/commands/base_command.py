@@ -13,6 +13,6 @@ class BaseCommand:
         parser.set_defaults(func=self.handle)
         return parser
 
-    def handle(self, args: argparse.Namespace) -> int:
+    def handle(self, args: argparse.Namespace) -> int:  # pragma: no cover
         del args
         return 0

@@ -21,6 +21,7 @@ mypy = "^0.982"
 pytest = "^7.2.0"
 pytest-cov = "^4.0.0"
 docformatter = "^1.5.0"
+coverage = {extras = ["toml"], version = "^6.5.0"}
 
 [build-system]
 requires = ["poetry-core"]
@@ -62,3 +63,14 @@ disable = [
 
 [tool.mypy]
 ignore_missing_imports = true
+
+[tool.coverage.run]
+omit = [
+    "*/__main__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+]

@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.0] - 2022-10-28
+
+### Added
+* add `add-item`, `remove-item` sub-commands
+* add `add-tag`, `remove-tag` sub-commands
+
+### Changed
+* no return exit code from `main()`
+
 ## [0.2.0] - 2022-10-27
 
 ### Added
@@ -20,5 +29,6 @@ All notable changes to this project will be documented in this file.
 
 
 [Unreleased]: https://github.com/koyeung/py-frontmatter/compare/main...HEAD
+[0.3.0]: https://github.com/koyeung/py-frontmatter/releases/tag/0.3.0
 [0.2.0]: https://github.com/koyeung/py-frontmatter/releases/tag/0.2.0
 [0.1.0]: https://github.com/koyeung/py-frontmatter/releases/tag/0.1.0

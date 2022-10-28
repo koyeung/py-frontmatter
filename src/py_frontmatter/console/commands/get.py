@@ -23,7 +23,7 @@ class GetCommand(BaseCommand):
         )
         return parser
 
-    def handle(self, args: argparse.Namespace) -> int:
+    def handle(self, args: argparse.Namespace) -> None:
 
         with closing(args.infile):
             document = load_document(args.infile)
@@ -34,5 +34,3 @@ class GetCommand(BaseCommand):
             meta_json = shlex.quote(meta_json)
 
         print(meta_json)
-
-        return 0

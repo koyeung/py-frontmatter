@@ -2,8 +2,7 @@ from .conftest import run_console_script
 
 
 def test_get(sample, capsys):
-    exit_code = run_console_script("frontmatter", "get", str(sample))
-    assert exit_code == 0
+    run_console_script("frontmatter", "get", str(sample))
 
     captured = capsys.readouterr()
     assert (
@@ -15,8 +14,7 @@ def test_get(sample, capsys):
 
 
 def test_get__shell_quote(sample, capsys):
-    exit_code = run_console_script("frontmatter", "get", "--sq", str(sample))
-    assert exit_code == 0
+    run_console_script("frontmatter", "get", "--sq", str(sample))
 
     captured = capsys.readouterr()
     assert (

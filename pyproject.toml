@@ -1,6 +1,10 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.poetry]
 name = "py-frontmatter"
-version = "0.2.0"
+version = "0.3.0"
 description = "Manipulate YAML front matter."
 authors = ["YEUNG King On <koyeung@gmail.com>"]
 license = "Apache-2.0"
@@ -10,6 +14,7 @@ packages = [{include = "py_frontmatter", from = "src"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 "ruamel.yaml" = "^0.17.21"
+jsonpath-ng = "^1.5.3"
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.10.1"
@@ -20,10 +25,7 @@ mypy = "^0.982"
 pytest = "^7.2.0"
 pytest-cov = "^4.0.0"
 docformatter = "^1.5.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+coverage = {extras = ["toml"], version = "^6.5.0"}
 
 [tool.poetry.scripts]
 frontmatter = "py_frontmatter.console.application:main"
@@ -55,4 +57,20 @@ good-names = ["i", "j", "k", "ex", "Run", "_", "fp"]
 disable = [
     "raw-checker-failed", "bad-inline-option", "locally-disabled", "file-ignored", "suppressed-message",
     "useless-suppression", "deprecated-pragma", "use-symbolic-message-instead",
-    "missing-module-docstring", "missing-function-docstring"]
+    "missing-module-docstring", "missing-function-docstring", "logging-fstring-interpolation",
+    "similarities",
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+omit = [
+    "*/__main__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+]

@@ -25,7 +25,7 @@ _COMMANDS = [
 ]
 
 
-def main() -> int:
+def main() -> None:
     logging.basicConfig(level=logging.INFO, format=_LOG_FORMAT)
 
     parser = argparse.ArgumentParser(description="Process YAML front matter.")
@@ -43,10 +43,8 @@ def main() -> int:
 
     if not hasattr(args, "func"):
         parser.print_help()
-        return 1
 
-    exit_code: int = args.func(args)
-    return exit_code
+    args.func(args)
 
 
 if __name__ == "__main__":

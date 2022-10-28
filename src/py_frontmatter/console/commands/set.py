@@ -23,7 +23,7 @@ class SetCommand(BaseCommand):
         )
         return parser
 
-    def handle(self, args: argparse.Namespace) -> int:
+    def handle(self, args: argparse.Namespace) -> None:
 
         meta = json.load(sys.stdin)
 
@@ -32,5 +32,3 @@ class SetCommand(BaseCommand):
             document.meta = meta
 
             overwrite_file(file=args.file, document=document)
-
-        return 0

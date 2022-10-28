@@ -28,7 +28,7 @@ class AddItemCommand(BaseCommand):
         parser.add_argument("--item", type=str, help="item to be added", required=True)
         return parser
 
-    def handle(self, args: argparse.Namespace) -> int:
+    def handle(self, args: argparse.Namespace) -> None:
 
         LOGGER.debug(f"{args=}")
 
@@ -39,5 +39,3 @@ class AddItemCommand(BaseCommand):
                 document=document, jsonpath=args.jsonpath, item=args.item
             )
             overwrite_file(file=args.file, document=document)
-
-        return 0

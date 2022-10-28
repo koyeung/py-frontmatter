@@ -30,7 +30,7 @@ class RemoveItemCommand(BaseCommand):
         )
         return parser
 
-    def handle(self, args: argparse.Namespace) -> int:
+    def handle(self, args: argparse.Namespace):
 
         LOGGER.debug(f"{args=}")
 
@@ -41,5 +41,3 @@ class RemoveItemCommand(BaseCommand):
                 document=document, jsonpath=args.jsonpath, item=args.item
             )
             overwrite_file(file=args.file, document=document)
-
-        return 0

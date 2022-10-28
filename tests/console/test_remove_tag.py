@@ -4,10 +4,7 @@ from .conftest import run_console_script
 
 
 def test_remove_item(sample):
-    exit_code = run_console_script(
-        "frontmatter", "remove-tag", "--tag", "a", str(sample)
-    )
-    assert exit_code == 0
+    run_console_script("frontmatter", "remove-tag", "--tag", "a", str(sample))
 
     assert (
         sample.read_text()
@@ -23,10 +20,7 @@ text
 
 
 def test_remove__tag_not_exists(sample):
-    exit_code = run_console_script(
-        "frontmatter", "remove-tag", "--tag", "c", str(sample)
-    )
-    assert exit_code == 0
+    run_console_script("frontmatter", "remove-tag", "--tag", "c", str(sample))
 
     assert (
         sample.read_text()
@@ -42,10 +36,7 @@ text
 
 
 def test_remove__no_any_tags(sample_wo_tags):
-    exit_code = run_console_script(
-        "frontmatter", "remove-tag", "--tag", "c", str(sample_wo_tags)
-    )
-    assert exit_code == 0
+    run_console_script("frontmatter", "remove-tag", "--tag", "c", str(sample_wo_tags))
 
     assert (
         sample_wo_tags.read_text()

@@ -4,10 +4,9 @@ from .conftest import run_console_script
 
 
 def test_remove_item(sample):
-    exit_code = run_console_script(
+    run_console_script(
         "frontmatter", "remove-item", "--jsonpath", "$.tags", "--item", "a", str(sample)
     )
-    assert exit_code == 0
 
     assert (
         sample.read_text()
@@ -23,10 +22,9 @@ text
 
 
 def test_remove__item_not_exists(sample):
-    exit_code = run_console_script(
+    run_console_script(
         "frontmatter", "remove-item", "--jsonpath", "$.tags", "--item", "c", str(sample)
     )
-    assert exit_code == 0
 
     assert (
         sample.read_text()

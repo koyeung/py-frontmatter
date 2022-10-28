@@ -9,8 +9,7 @@ def test_set(sample, monkeypatch):
 
     monkeypatch.setattr("sys.stdin", io.StringIO(meta_json))
 
-    exit_code = run_console_script("frontmatter", "set", str(sample))
-    assert exit_code == 0
+    run_console_script("frontmatter", "set", str(sample))
 
     assert (
         sample.read_text()

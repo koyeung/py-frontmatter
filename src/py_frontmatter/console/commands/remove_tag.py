@@ -26,7 +26,7 @@ class RemoveTagCommand(BaseCommand):
         parser.add_argument("--tag", type=str, help="tag to remove", required=True)
         return parser
 
-    def handle(self, args: argparse.Namespace) -> int:
+    def handle(self, args: argparse.Namespace):
 
         LOGGER.debug(f"{args=}")
 
@@ -40,5 +40,3 @@ class RemoveTagCommand(BaseCommand):
                 raise_if_unknown_jsonpath=False,
             )
             overwrite_file(file=args.file, document=document)
-
-        return 0

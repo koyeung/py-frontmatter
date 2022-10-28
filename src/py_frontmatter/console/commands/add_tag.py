@@ -26,7 +26,7 @@ class AddTagCommand(BaseCommand):
         parser.add_argument("--tag", type=str, help="tag to add", required=True)
         return parser
 
-    def handle(self, args: argparse.Namespace) -> int:
+    def handle(self, args: argparse.Namespace) -> None:
 
         LOGGER.debug(f"{args=}")
 
@@ -35,5 +35,3 @@ class AddTagCommand(BaseCommand):
             document = load_document(args.file)
             document = add_item(document=document, jsonpath=TAG_JSONPATH, item=args.tag)
             overwrite_file(file=args.file, document=document)
-
-        return 0

@@ -76,3 +76,31 @@ tags:
 # header
 text
 ```
+
+### Specialize commands to add/remove tag
+
+```commandline
+% frontmatter add-tag --tag d note.md
+% cat note.md 
+---
+title: My note
+tags:
+- a
+- b
+- c
+- d
+---
+# header
+text
+% frontmatter remove-tag --tag d note.md
+% cat note.md                           
+---
+title: My note
+tags:
+- a
+- b
+- c
+---
+# header
+text
+```

@@ -39,14 +39,24 @@ def add_item(*, document: Document, jsonpath: str, item: str) -> Document:
     return document
 
 
-def remove_item(*, document: Document, jsonpath: str, item: str) -> Document:
+def remove_item(
+    *,
+    document: Document,
+    jsonpath: str,
+    item: str,
+    raise_if_unknown_jsonpath: bool = True,
+) -> Document:
     jsonpath_expr = jsonpath_ng.parse(jsonpath)
 
     meta = document.meta
     matches = jsonpath_expr.find(meta)
 
     if not matches:
-        raise RuntimeError(f"unable to locate {jsonpath=}")
+        if raise_if_unknown_jsonpath:
+            raise RuntimeError(f"unable to locate {jsonpath=}")
+
+        LOGGER.debug(f"{jsonpath=} not exists; no action")
+        return document
 
     if len(matches) > 1:  # pragma: no cover
         raise RuntimeError(f"support only single match of {jsonpath=}")

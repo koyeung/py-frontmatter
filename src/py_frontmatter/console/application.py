@@ -3,12 +3,26 @@ import logging
 
 from py_frontmatter import __version__
 
-from .commands import AddItemCommand, GetCommand, RemoveItemCommand, SetCommand
+from .commands import (
+    AddItemCommand,
+    AddTagCommand,
+    GetCommand,
+    RemoveItemCommand,
+    RemoveTagCommand,
+    SetCommand,
+)
 
 LOGGER = logging.getLogger(__name__)
 _LOG_FORMAT = "%(asctime)s %(levelname)s %(name)s %(message)s"
 
-_COMMANDS = [GetCommand(), SetCommand(), AddItemCommand(), RemoveItemCommand()]
+_COMMANDS = [
+    GetCommand(),
+    SetCommand(),
+    AddItemCommand(),
+    RemoveItemCommand(),
+    AddTagCommand(),
+    RemoveTagCommand(),
+]
 
 
 def main() -> int:

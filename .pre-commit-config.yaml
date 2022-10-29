@@ -42,3 +42,8 @@ repos:
         entry: pylint
         language: system
         types: [python]
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.4.4
+    hooks:
+      - id: pip-audit
+        stages: [manual]

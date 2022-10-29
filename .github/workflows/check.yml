@@ -23,7 +23,15 @@ jobs:
           key: pip-${{ hashFiles('**/poetry.lock') }}
           restore-keys: pip-
 
-      - run: pip install tox poetry
+      - name: pre-commit cache
+        id: pre-commit-cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('**/.pre-commit-config.yaml') }}
+          restore-keys: pre-commit-
+
+      - run: pip install tox poetry pre-commit
 
       - name: Generate requirements.txt for pip-audit
         run: poetry export -f requirements.txt --with dev --output requirements.txt

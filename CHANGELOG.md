@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 * use [pre-commit.ci](https://pre-commit.ci)
 * use [actions/cache](https://github.com/actions/cache)
 * use [pypa/gh-action-pip-audit](https://github.com/pypa/gh-action-pip-audit)
+* run lint checks from `pre-commit` in CI
 
 ## [0.3.0] - 2022-10-28
 

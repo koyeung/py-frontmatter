@@ -19,7 +19,6 @@ jsonpath-ng = "^1.5.3"
 [tool.poetry.group.dev.dependencies]
 isort = "^5.10.1"
 black = "^22.10.0"
-pip-audit = "^2.4.4"
 pylint = "^2.15.5"
 mypy = "^0.982"
 pytest = "^7.2.0"

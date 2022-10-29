@@ -8,12 +8,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
+      - run: echo "::set-output name=dir::$(pip cache dir)"
+        # no hardcode os-specific path
+        id: pip-cache-dir
+      - name: pip cache
+        id: pip-cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pip-cache-dir.outputs.dir }}
+          key: pip-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: pip-
+
       - run: pip install tox poetry
+
+      - name: Generate requirements.txt for pip-audit
+        run: poetry export -f requirements.txt --with dev --output requirements.txt
+      - uses: pypa/gh-action-pip-audit@v1.0.0
+        with:
+          inputs: requirements.txt
+          require-hashes: true
 
       - name: Show versions
         run: |
@@ -22,6 +39,13 @@ jobs:
           echo "tox: $(tox --version)"
           poetry --version
 
+      - name: tox dir
+        id: tox-dir
+        uses: actions/cache@v3
+        with:
+          path: .tox
+          key: tox-lint-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: tox-lint-
       - run: tox -e lint
 
   tests:
@@ -37,10 +61,20 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+
+      - run: echo "::set-output name=dir::$(pip cache dir)"
+        # no hardcode os-specific path
+        id: pip-cache-dir
+      - name: pip cache
+        id: pip-cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pip-cache-dir.outputs.dir }}
+          key: pip-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: pip-
 
       - run: pip install tox poetry
 
@@ -51,6 +85,13 @@ jobs:
           echo "tox: $(tox --version)"
           poetry --version
 
+      - name: tox dir
+        id: tox-dir
+        uses: actions/cache@v3
+        with:
+          path: .tox
+          key: tox-tests-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: tox-tests-${{ matrix.python-version }}-
       - run: tox -e tests
         # Run tox using py: The current Python version tox is using
 
@@ -60,10 +101,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
+
+      - run: echo "::set-output name=dir::$(pip cache dir)"
+        # no hardcode os-specific path
+        id: pip-cache-dir
+      - name: pip cache
+        id: pip-cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pip-cache-dir.outputs.dir }}
+          key: pip-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: pip-
 
       - run: pip install poetry
 

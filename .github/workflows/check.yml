@@ -12,14 +12,13 @@ jobs:
         with:
           python-version: "3.10"
 
-      - run: echo "::set-output name=dir::$(pip cache dir)"
+      - run: echo "pip_cache_dir=$(pip cache dir)" >> $GITHUB_ENV
         # no hardcode os-specific path
-        id: pip-cache-dir
       - name: pip cache
         id: pip-cache
         uses: actions/cache@v3
         with:
-          path: ${{ steps.pip-cache-dir.outputs.dir }}
+          path: ${{ env.pip_cache_dir }}
           key: pip-${{ hashFiles('**/poetry.lock') }}
           restore-keys: pip-
 
@@ -73,14 +72,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - run: echo "::set-output name=dir::$(pip cache dir)"
+      - run: echo "pip_cache_dir=$(pip cache dir)" >> $GITHUB_ENV
         # no hardcode os-specific path
-        id: pip-cache-dir
       - name: pip cache
         id: pip-cache
         uses: actions/cache@v3
         with:
-          path: ${{ steps.pip-cache-dir.outputs.dir }}
+          path: ${{ env.pip_cache_dir }}
           key: pip-${{ hashFiles('**/poetry.lock') }}
           restore-keys: pip-
 
@@ -113,14 +111,13 @@ jobs:
         with:
           python-version: "3.10"
 
-      - run: echo "::set-output name=dir::$(pip cache dir)"
+      - run: echo "pip_cache_dir=$(pip cache dir)" >> $GITHUB_ENV
         # no hardcode os-specific path
-        id: pip-cache-dir
       - name: pip cache
         id: pip-cache
         uses: actions/cache@v3
         with:
-          path: ${{ steps.pip-cache-dir.outputs.dir }}
+          path: ${{ env.pip_cache_dir }}
           key: pip-${{ hashFiles('**/poetry.lock') }}
           restore-keys: pip-
 

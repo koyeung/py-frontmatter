@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 * use [pre-commit](https://pre-commit.com/)
 * use [pre-commit.ci](https://pre-commit.ci)
+* use [actions/cache](https://github.com/actions/cache)
+* use [pypa/gh-action-pip-audit](https://github.com/pypa/gh-action-pip-audit)
 
 ## [0.3.0] - 2022-10-28
 

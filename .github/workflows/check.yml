@@ -60,11 +60,11 @@ jobs:
     needs: lint
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest]
         python-version: ["3.10", "3.11"]
-        # include:
-        #   - os: macos-12
-        #     python-version: "3.11"
+        include:
+          - os: macos-12
+            python-version: "3.11"
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -81,8 +81,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ github.job }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
-          restore-keys: pip-${{ github.job }}-${{ matrix.python-version }}-
+          key: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-
 
       - run: pip install tox poetry
 
@@ -98,8 +98,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .tox
-          key: tox-${{ github.job }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock', 'tox.ini') }}
-          restore-keys: tox-${{ github.job }}-${{ matrix.python-version }}-
+          key: tox-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock', 'tox.ini') }}
+          restore-keys: tox-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-
       - run: tox -e tests
         # Run tox using py: The current Python version tox is using
 

@@ -23,18 +23,18 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ github.job }}-${{ hashFiles('poetry.lock') }}
+          key: pip-${{ github.job }}-${{ hashFiles('pyproject.toml') }}
           restore-keys: pip-${{ github.job }}-
 
-      - run: pip install poetry
+      - run: pip install build
 
       - name: Show versions
         run: |
           uname -a
           python3 --version
-          poetry --version
+          python3 -m build --version
 
-      - run: poetry build
+      - run: python3 -m build
 
       - name: Publish distribution to PIPI
         if: startsWith(github.ref, 'refs/tags')

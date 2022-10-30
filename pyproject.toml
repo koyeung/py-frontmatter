@@ -32,9 +32,6 @@ multi_line_output = 3
 # match line_length with black
 line_length = 88
 
-[tool.pytest.ini_options]
-addopts = "--doctest-modules"
-
 [tool.pylint.main]
 # Good variable names which should always be accepted, separated by a comma.
 good-names = ["i", "j", "k", "ex", "Run", "_", "fp"]
@@ -58,6 +55,9 @@ disable = [
 
 [tool.mypy]
 ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules --no-cov-on-fail --cov-report term-missing:skip-covered"
 
 [tool.coverage.run]
 omit = [

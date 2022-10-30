@@ -23,8 +23,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: pip-
+          key: pip-${{ github.job }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: pip-${{ github.job }}-
 
       - run: pip install poetry
 

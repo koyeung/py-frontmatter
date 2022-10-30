@@ -20,8 +20,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: pip-
+          key: pip-${{ github.job }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: pip-${{ github.job }}
 
       - name: pre-commit cache
         id: pre-commit-cache
@@ -52,8 +52,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .tox
-          key: tox-lint-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: tox-lint-
+          key: tox-${{ github.job }}-${{ hashFiles('poetry.lock', 'tox.ini') }}
+          restore-keys: tox-${{ github.job }}-
       - run: tox -e lint
 
   tests:
@@ -61,7 +61,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.11", "3.10"]
+        python-version: ["3.10", "3.11"]
         # include:
         #   - os: macos-12
         #     python-version: "3.11"
@@ -81,8 +81,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: pip-
+          key: pip-${{ github.job }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: pip-${{ github.job }}-${{ matrix.python-version }}-
 
       - run: pip install tox poetry
 
@@ -98,8 +98,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .tox
-          key: tox-tests-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: tox-tests-${{ matrix.python-version }}-
+          key: tox-${{ github.job }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock', 'tox.ini') }}
+          restore-keys: tox-${{ github.job }}-${{ matrix.python-version }}-
       - run: tox -e tests
         # Run tox using py: The current Python version tox is using
 
@@ -121,8 +121,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: pip-
+          key: pip-${{ github.job }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: pip-${{ github.job }}-
 
       - run: pip install poetry
 

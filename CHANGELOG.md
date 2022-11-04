@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 * use [pypa/gh-action-pip-audit](https://github.com/pypa/gh-action-pip-audit)
 * run lint checks from `pre-commit` in CI
 * use [build](https://pypa-build.readthedocs.io/en/stable/) as PEP 517 build frontend
+* run tests using `sdist` installed by `tox`
 
 ## [0.3.0] - 2022-10-28
 

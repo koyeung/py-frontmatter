@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file.
 * run lint checks from `pre-commit` in CI
 * use [build](https://pypa-build.readthedocs.io/en/stable/) as PEP 517 build frontend
 * run tests using `sdist` installed by `tox`
+* add `poetry-audit` to `pre-commit` config
+* add `tox-ini-fmt` to `pre-commit` config
 
 ## [0.3.0] - 2022-10-28
 

@@ -48,6 +48,8 @@ jobs:
           key: tox-${{ github.job }}-${{ hashFiles('poetry.lock', 'tox.ini') }}
           restore-keys: tox-${{ github.job }}-
       - run: tox -e lint
+        env:
+          SKIP: poetry-audit
 
   tests:
     needs: lint

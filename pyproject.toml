@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "py-frontmatter"
-version = "0.5.0a0"
+version = "0.5.0a1"
 description = "Manipulate YAML front matter."
 authors = ["YEUNG King On <koyeung@gmail.com>"]
 license = "Apache-2.0"

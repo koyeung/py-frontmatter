@@ -33,13 +33,6 @@ jobs:
 
       - run: pip install tox poetry pre-commit
 
-      - name: Generate requirements.txt for pip-audit
-        run: poetry export -f requirements.txt --with dev --output requirements.txt
-      - uses: pypa/gh-action-pip-audit@v1.0.1
-        with:
-          inputs: requirements.txt
-          require-hashes: true
-
       - name: Show versions
         run: |
           uname -a
@@ -47,6 +40,8 @@ jobs:
           echo "tox: $(tox --version)"
           poetry --version
 
+      - uses: isort/isort-action@v1
+      - uses: psf/black@stable
       - name: tox dir
         id: tox-dir
         uses: actions/cache@v3
@@ -55,6 +50,8 @@ jobs:
           key: tox-${{ github.job }}-${{ hashFiles('poetry.lock', 'tox.ini') }}
           restore-keys: tox-${{ github.job }}-
       - run: tox -e lint
+        env:
+          SKIP: black,isort,poetry-audit
 
   tests:
     needs: lint

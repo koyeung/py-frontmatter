@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.5.0a1] - 2022-11-13
+### Changed
+* not using `pre-commit.ci`
+
 ## [0.5.0a0] - 2022-11-13
 ### Changed
 * revise readme
@@ -42,6 +46,7 @@ All notable changes to this project will be documented in this file.
 
 
 [Unreleased]: https://github.com/koyeung/py-frontmatter/compare/main...HEAD
+[0.5.0a1]: https://github.com/koyeung/py-frontmatter/releases/tag/0.5.0a1
 [0.5.0a0]: https://github.com/koyeung/py-frontmatter/releases/tag/0.5.0a0
 [0.4.0]: https://github.com/koyeung/py-frontmatter/releases/tag/0.4.0
 [0.3.0]: https://github.com/koyeung/py-frontmatter/releases/tag/0.3.0

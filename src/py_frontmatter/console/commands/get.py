@@ -15,7 +15,6 @@ class GetCommand(BaseCommand):
     description = "Retrieve front matter as json string"
 
     def register(self, subparsers) -> argparse.ArgumentParser:
-
         parser = super().register(subparsers)
         parser.add_argument("infile", type=argparse.FileType(), help="input file")
         parser.add_argument(
@@ -24,7 +23,6 @@ class GetCommand(BaseCommand):
         return parser
 
     def handle(self, args: argparse.Namespace) -> None:
-
         with closing(args.infile):
             document = load_document(args.infile)
 

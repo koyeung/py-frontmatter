@@ -17,7 +17,6 @@ class RemoveItemCommand(BaseCommand):
     description = "Remove item from a list"
 
     def register(self, subparsers) -> argparse.ArgumentParser:
-
         parser = super().register(subparsers)
         parser.add_argument(
             "file", type=argparse.FileType(mode="r+"), help="document file"
@@ -31,11 +30,9 @@ class RemoveItemCommand(BaseCommand):
         return parser
 
     def handle(self, args: argparse.Namespace):
-
         LOGGER.debug(f"{args=}")
 
         with closing(args.file):
-
             document = load_document(args.file)
             document = remove_item(
                 document=document, jsonpath=args.jsonpath, item=args.item

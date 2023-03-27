@@ -31,7 +31,7 @@ jobs:
           key: pre-commit-${{ hashFiles('**/.pre-commit-config.yaml') }}
           restore-keys: pre-commit-
 
-      - run: pip install -U tox 'poetry>=1.4.0' pre-commit
+      - run: pip install tox 'poetry>=1.4.0' pre-commit
 
       - name: Show versions
         run: |
@@ -81,7 +81,7 @@ jobs:
           key: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
           restore-keys: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-
 
-      - run: pip install tox poetry
+      - run: pip install tox 'poetry>=1.4.0'
 
       - name: Show versions
         run: |

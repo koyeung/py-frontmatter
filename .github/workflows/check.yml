@@ -31,7 +31,7 @@ jobs:
           key: pre-commit-${{ hashFiles('**/.pre-commit-config.yaml') }}
           restore-keys: pre-commit-
 
-      - run: pip install -U tox poetry pre-commit
+      - run: pip install -U tox 'poetry>=1.4.0' pre-commit
 
       - name: Show versions
         run: |

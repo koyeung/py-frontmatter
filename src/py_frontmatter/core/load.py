@@ -45,7 +45,7 @@ def _parse_text(text: str, /) -> Tuple[str, str]:
     match = re.match(pattern=DOC_PATTERN, string=text, flags=re.DOTALL | re.MULTILINE)
 
     if not match:
-        raise Exception("Unable to parse input with/without yaml front matter")
+        raise RuntimeError("Unable to parse input with/without yaml front matter")
 
     matched_groups = match.groupdict()
     return matched_groups["frontmatter"], matched_groups["content"]

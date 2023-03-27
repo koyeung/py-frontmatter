@@ -31,7 +31,7 @@ jobs:
           key: pre-commit-${{ hashFiles('**/.pre-commit-config.yaml') }}
           restore-keys: pre-commit-
 
-      - run: pip install tox poetry pre-commit
+      - run: pip install tox 'poetry>=1.4.0' pre-commit
 
       - name: Show versions
         run: |
@@ -49,7 +49,7 @@ jobs:
           path: .tox
           key: tox-${{ github.job }}-${{ hashFiles('poetry.lock', 'tox.ini') }}
           restore-keys: tox-${{ github.job }}-
-      - run: tox -e lint
+      - run: tox run -e lint
         env:
           SKIP: black,isort,poetry-audit
 
@@ -59,9 +59,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         python-version: ["3.10", "3.11"]
-        include:
-          - os: macos-12
-            python-version: "3.11"
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -81,7 +78,7 @@ jobs:
           key: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
           restore-keys: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-
 
-      - run: pip install tox poetry
+      - run: pip install tox 'poetry>=1.4.0'
 
       - name: Show versions
         run: |
@@ -97,7 +94,7 @@ jobs:
           path: .tox
           key: tox-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock', 'tox.ini') }}
           restore-keys: tox-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-
-      - run: tox -e tests
+      - run: tox run -e tests
         # Run tox using py: The current Python version tox is using
 
   build:

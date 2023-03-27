@@ -16,7 +16,6 @@ class SetCommand(BaseCommand):
     description = "Set front matter from json input"
 
     def register(self, subparsers) -> argparse.ArgumentParser:
-
         parser = super().register(subparsers)
         parser.add_argument(
             "file", type=argparse.FileType(mode="r+"), help="document file"
@@ -24,7 +23,6 @@ class SetCommand(BaseCommand):
         return parser
 
     def handle(self, args: argparse.Namespace) -> None:
-
         meta = json.load(sys.stdin)
 
         with closing(args.file):

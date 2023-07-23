@@ -13,12 +13,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
-      - run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
+      - name: Get pip cache dir
+        run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
         # no hardcode os-specific path
         id: pip-cache-dir
-      - name: pip cache
+      - name: Cache ${{ steps.pip-cache-dir.outputs.dir }}
         id: pip-cache
         uses: actions/cache@v3
         with:
@@ -26,7 +27,8 @@ jobs:
           key: pip-${{ github.job }}-${{ hashFiles('pyproject.toml') }}
           restore-keys: pip-${{ github.job }}-
 
-      - run: pip install build
+      - name: Install build
+        run: pip install build
 
       - name: Show versions
         run: |
@@ -34,7 +36,8 @@ jobs:
           python3 --version
           python3 -m build --version
 
-      - run: python3 -m build
+      - name: Build distributions
+        run: python3 -m build
 
       - name: Publish distribution to PIPI
         if: startsWith(github.ref, 'refs/tags')

@@ -1,56 +1,104 @@
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry]
+[project]
 name = "py-frontmatter"
-version = "0.5.0a2"
-description = "Manipulate YAML front matter."
-authors = ["YEUNG King On <koyeung@gmail.com>"]
-license = "Apache-2.0"
+dynamic = ["version"]
+description = 'Manipulate YAML front matter.'
 readme = "README.md"
-packages = [{include = "py_frontmatter", from = "src"}]
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+keywords = []
+authors = [
+  { name = "YEUNG King On", email = "koyeung@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "ruamel.yaml>=0.17.21",
+  "jsonpath-ng>=1.5.3",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-"ruamel.yaml" = "^0.17.21"
-jsonpath-ng = "^1.5.3"
+[project.urls]
+Documentation = "https://github.com/koyeung/py-frontmatter#readme"
+Issues = "https://github.com/koyeung/py-frontmatter/issues"
+Source = "https://github.com/koyeung/py-frontmatter"
 
-[tool.poetry.group.dev.dependencies]
-pylint = "^2.15.5"
-pytest = "^7.2.0"
-pytest-cov = "^4.0.0"
-coverage = {extras = ["toml"], version = ">=6.5,<8.0"}
-
-[tool.poetry.scripts]
+[project.scripts]
 frontmatter = "py_frontmatter.console.application:main"
 
-[tool.isort]
-profile = "black"
-multi_line_output = 3
+[tool.hatch.version]
+path = "src/py_frontmatter/__about__.py"
 
-# match line_length with black
-line_length = 88
+[tool.hatch.envs.default]
+dependencies = [
+  "coverage[toml]>=6.5",
+  "pytest",
+  "pytest-cov",
+]
 
-[tool.pylint.main]
-# Good variable names which should always be accepted, separated by a comma.
-good-names = ["i", "j", "k", "ex", "Run", "_", "fp"]
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-cov = "coverage run -m pytest {args:tests}"
+cov-report = [
+  "- coverage combine",
+  "coverage report",
+]
+cov = [
+  "test-cov",
+  "cov-report",
+]
 
-[tool.pylint."messages control"]
-# Disable the message, report, category or checker with the given id(s). You can
-# either give multiple identifiers separated by comma (,) or put this option
-# multiple times (only on the command line, not in the configuration file where
-# it should appear only once). You can also use "--disable=all" to disable
-# everything first and then re-enable specific checks. For example, if you want
-# to run only the similarities checker, you can use "--disable=all
-# --enable=similarities". If you want to run only the classes checker, but have
-# no Warning level messages displayed, use "--disable=all --enable=classes
-# --disable=W".
-disable = [
-    "raw-checker-failed", "bad-inline-option", "locally-disabled", "file-ignored", "suppressed-message",
-    "useless-suppression", "deprecated-pragma", "use-symbolic-message-instead",
-    "missing-module-docstring", "missing-function-docstring", "logging-fstring-interpolation",
-    "similarities",
+[[tool.hatch.envs.all.matrix]]
+python = ["3.10", "3.11"]
+
+[tool.hatch.envs.lint]
+detached = true
+dependencies = [
+  "black>=23.1.0",
+  "mypy>=1.0.0",
+  "ruff>=0.0.243",
+]
+[tool.hatch.envs.lint.scripts]
+typing = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
+style = [
+  "ruff {args:.}",
+  "black --check --diff {args:.}",
+]
+fmt = [
+  "black {args:.}",
+  "ruff --fix {args:.}",
+  "style",
+]
+all = [
+  "style",
+  "typing",
+]
+
+[tool.coverage.run]
+source_pkgs = ["py_frontmatter", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/py_frontmatter/__about__.py",
+]
+
+[tool.coverage.paths]
+py_frontmatter = ["src/py_frontmatter", "*/py-frontmatter/src/py_frontmatter"]
+tests = ["tests", "*/py-frontmatter/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
 ]
 
 [tool.mypy]
@@ -59,13 +107,55 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 addopts = "--doctest-modules --no-cov-on-fail --cov-report term-missing:skip-covered"
 
-[tool.coverage.run]
-omit = [
-    "*/__main__.py",
+[tool.ruff]
+select = [
+  "A",
+  "ARG",
+  "B",
+  "C",
+  "DTZ",
+  "E",
+  "EM",
+  "F",
+  "FBT",
+  "I",
+  "ICN",
+  "ISC",
+  "N",
+  "PLC",
+  "PLE",
+  "PLR",
+  "PLW",
+  "Q",
+  "RUF",
+  "S",
+  "T",
+  "TID",
+  "UP",
+  "W",
+  "YTT",
+]
+ignore = [
+  # Allow non-abstract empty methods in abstract base classes
+  "B027",
+  # Allow boolean positional values in function calls, like `dict.get(... True)`
+  "FBT003",
+  # Ignore checks for possible passwords
+  "S105", "S106", "S107",
+  # Ignore complexity
+  "C901", "PLR0911", "PLR0912", "PLR0913", "PLR0915",
+]
+unfixable = [
+  # Don't touch unused imports
+  "F401",
 ]
 
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "if __name__ == .__main__.:",
-]
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "parents"
+
+[tool.ruff.isort]
+known-first-party = ["py_frontmatter"]
+
+[tool.ruff.per-file-ignores]
+# Tests can use magic values, assertions, and relative imports
+"tests/**/*" = ["PLR2004", "S101", "TID252"]

@@ -1,5 +1,8 @@
+# SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
+#
+# SPDX-License-Identifier: Apache-2.0
 import re
-from typing import TextIO, Tuple
+from typing import TextIO
 
 from ruamel.yaml import YAML
 
@@ -9,7 +12,7 @@ from .document import Document
 DOC_PATTERN = r"((?P<frontmatter>---\n(.+?\n)?)---\n)?(?P<content>.*)"
 
 
-def _parse_text(text: str, /) -> Tuple[str, str]:
+def _parse_text(text: str, /) -> tuple[str, str]:
     r"""Extract yaml front matter string and content.
 
     >>> text = 'hello world!'
@@ -45,7 +48,8 @@ def _parse_text(text: str, /) -> Tuple[str, str]:
     match = re.match(pattern=DOC_PATTERN, string=text, flags=re.DOTALL | re.MULTILINE)
 
     if not match:
-        raise RuntimeError("Unable to parse input with/without yaml front matter")
+        msg = "Unable to parse input with/without yaml front matter"
+        raise RuntimeError(msg)
 
     matched_groups = match.groupdict()
     return matched_groups["frontmatter"], matched_groups["content"]

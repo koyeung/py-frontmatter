@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
+#
+# SPDX-License-Identifier: Apache-2.0
 import pytest
 
 from .conftest import run_console_script

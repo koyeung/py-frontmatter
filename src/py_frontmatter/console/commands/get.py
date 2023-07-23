@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
+#
+# SPDX-License-Identifier: Apache-2.0
 import argparse
 import json
 import shlex
@@ -31,4 +34,4 @@ class GetCommand(BaseCommand):
         if args.sq:
             meta_json = shlex.quote(meta_json)
 
-        print(meta_json)
+        print(meta_json)  # ruff: noqa: T201

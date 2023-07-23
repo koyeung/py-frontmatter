@@ -12,41 +12,26 @@ repos:
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: trailing-whitespace
-  - repo: https://github.com/psf/black.git
-    rev: 23.1.0
+  - repo: https://github.com/abravalheri/validate-pyproject
+    rev: v0.13
     hooks:
-      - id: black
-  - repo: https://github.com/PyCQA/isort.git
-    rev: 5.12.0
-    hooks:
-      - id: isort
+      - id: validate-pyproject
+        files: |
+          (?x)^(
+            pyproject.toml|
+            .*/pyproject.toml
+          )$
   - repo: https://github.com/PyCQA/docformatter.git
-    rev: v1.5.1
+    rev: v1.7.5
     hooks:
       - id: docformatter
-        stages: [manual]
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.0.1
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.0.280
     hooks:
-      - id: mypy
-  - repo: local
-    # see https://pylint.pycqa.org/en/latest/user_guide/installation/pre-commit-integration.html
+      - id: ruff
+        # uncomment below when it is ready to apply fix:
+        # args: [ --fix, --exit-non-zero-on-fix ]
+  - repo: https://github.com/psf/black.git
+    rev: 23.7.0
     hooks:
-      - id: pylint
-        name: pylint
-        entry: pylint
-        language: system
-        types: [python]
-  - repo: https://github.com/koyeung/ko-poetry-audit-plugin.git
-    rev: 0.7.0
-    hooks:
-      - id: poetry-audit
-  - repo: https://github.com/pypa/pip-audit
-    rev: v2.4.15
-    hooks:
-      - id: pip-audit
-        stages: [manual]
-  - repo: https://github.com/tox-dev/tox-ini-fmt
-    rev: "0.6.1"
-    hooks:
-      - id: tox-ini-fmt
+      - id: black

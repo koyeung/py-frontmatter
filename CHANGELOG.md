@@ -3,6 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+* migrate from [poetry](https://python-poetry.org) and [tox](https://tox.wiki/) to [Hatch](https://hatch.pypa.io/latest/)
 
 ## [0.5.0a2] - 2022-11-14
 ### Changed

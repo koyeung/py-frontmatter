@@ -108,6 +108,7 @@ ignore_missing_imports = true
 addopts = "--doctest-modules --no-cov-on-fail --cov-report term-missing:skip-covered"
 
 [tool.ruff]
+src = ["src"]
 select = [
   "A",
   "ARG",

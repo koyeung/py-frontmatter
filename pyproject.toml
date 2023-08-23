@@ -1,36 +1,39 @@
 [build-system]
-requires = ["hatchling"]
 build-backend = "hatchling.build"
+requires = [
+  "hatchling",
+]
 
 [project]
 name = "py-frontmatter"
-dynamic = ["version"]
-description = 'Manipulate YAML front matter.'
+description = "Manipulate YAML front matter."
 readme = "README.md"
-requires-python = ">=3.10"
+keywords = [
+]
 license = {text = "Apache-2.0"}
-keywords = []
 authors = [
   { name = "YEUNG King On", email = "koyeung@gmail.com" },
 ]
+requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = [
-  "ruamel.yaml>=0.17.21",
-  "jsonpath-ng>=1.5.3",
+dynamic = [
+  "version",
 ]
-
+dependencies = [
+  "jsonpath-ng>=1.5.3",
+  "ruamel.yaml>=0.17.21",
+]
 [project.urls]
 Documentation = "https://github.com/koyeung/py-frontmatter#readme"
 Issues = "https://github.com/koyeung/py-frontmatter/issues"
 Source = "https://github.com/koyeung/py-frontmatter"
-
 [project.scripts]
 frontmatter = "py_frontmatter.console.application:main"
 
@@ -69,10 +72,12 @@ dependencies = [
 [tool.hatch.envs.lint.scripts]
 typing = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
 style = [
+  "pyproject-fmt --check",
   "ruff {args:.}",
   "black --check --diff {args:.}",
 ]
 fmt = [
+  "pyproject-fmt",
   "black {args:.}",
   "ruff --fix {args:.}",
   "style",
@@ -81,31 +86,6 @@ all = [
   "style",
   "typing",
 ]
-
-[tool.coverage.run]
-source_pkgs = ["py_frontmatter", "tests"]
-branch = true
-parallel = true
-omit = [
-  "src/py_frontmatter/__about__.py",
-]
-
-[tool.coverage.paths]
-py_frontmatter = ["src/py_frontmatter", "*/py-frontmatter/src/py_frontmatter"]
-tests = ["tests", "*/py-frontmatter/tests"]
-
-[tool.coverage.report]
-exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
-]
-
-[tool.mypy]
-ignore_missing_imports = true
-
-[tool.pytest.ini_options]
-addopts = "--doctest-modules --no-cov-on-fail --cov-report term-missing:skip-covered"
 
 [tool.ruff]
 src = ["src"]
@@ -160,3 +140,28 @@ known-first-party = ["py_frontmatter"]
 [tool.ruff.per-file-ignores]
 # Tests can use magic values, assertions, and relative imports
 "tests/**/*" = ["PLR2004", "S101", "TID252"]
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules --no-cov-on-fail --cov-report term-missing:skip-covered"
+
+[tool.coverage.run]
+source_pkgs = ["py_frontmatter", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/py_frontmatter/__about__.py",
+]
+
+[tool.coverage.paths]
+py_frontmatter = ["src/py_frontmatter", "*/py-frontmatter/src/py_frontmatter"]
+tests = ["tests", "*/py-frontmatter/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.mypy]
+ignore_missing_imports = true

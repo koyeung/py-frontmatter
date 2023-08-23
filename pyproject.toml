@@ -75,13 +75,17 @@ dependencies = [
 typing = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
 style = [
   "pyproject-fmt --check pyproject.toml",
+  "ruff --version",
   "ruff {args:.}",
+  "black --version",
   "black --check --diff {args:.}",
 ]
 fmt = [
   "pyproject-fmt pyproject.toml",
-  "black {args:.}",
+  "ruff --version",
   "ruff --fix {args:.}",
+  "black --version",
+  "black {args:.}",
   "style",
 ]
 all = [

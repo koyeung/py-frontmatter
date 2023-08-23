@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
+#
+# SPDX-License-Identifier: Apache-2.0
 import logging
 from dataclasses import dataclass
 
@@ -27,7 +30,8 @@ def add_item(*, document: Document, jsonpath: str, item: str) -> Document:
         return document
 
     if len(matches) > 1:  # pragma: no cover
-        raise RuntimeError(f"support only single match of {jsonpath=}")
+        msg = f"support only single match of jsonpath={jsonpath!r}"
+        raise RuntimeError(msg)
 
     found = matches[0]
 
@@ -53,13 +57,15 @@ def remove_item(
 
     if not matches:
         if raise_if_unknown_jsonpath:
-            raise RuntimeError(f"unable to locate {jsonpath=}")
+            msg = f"unable to locate jsonpath={jsonpath!r}"
+            raise RuntimeError(msg)
 
         LOGGER.debug(f"{jsonpath=} not exists; no action")
         return document
 
     if len(matches) > 1:  # pragma: no cover
-        raise RuntimeError(f"support only single match of {jsonpath=}")
+        msg = f"support only single match of jsonpath={jsonpath!r}"
+        raise RuntimeError(msg)
 
     found = matches[0]
 

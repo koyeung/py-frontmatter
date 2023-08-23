@@ -5,97 +5,80 @@ on: [push]
 jobs:
 
   lint:
+    name: lint
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
-      - run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
+      - name: Get pip cache dir
+        run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
         # no hardcode os-specific path
         id: pip-cache-dir
-      - name: pip cache
+      - name: Cache ${{ steps.pip-cache-dir.outputs.dir }}
         id: pip-cache
         uses: actions/cache@v3
         with:
           path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ github.job }}-${{ hashFiles('poetry.lock') }}
+          key: pip-${{ github.job }}-${{ hashFiles('pyproject.toml') }}
           restore-keys: pip-${{ github.job }}
 
-      - name: pre-commit cache
-        id: pre-commit-cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pre-commit
-          key: pre-commit-${{ hashFiles('**/.pre-commit-config.yaml') }}
-          restore-keys: pre-commit-
-
-      - run: pip install tox 'poetry>=1.4.0' pre-commit
+      - name: Install Hatch
+        run: pip install --upgrade hatch
 
       - name: Show versions
         run: |
           uname -a
           python3 --version
-          echo "tox: $(tox --version)"
-          poetry --version
+          hatch --version
 
-      - uses: isort/isort-action@v1
-      - uses: psf/black@stable
-      - name: tox dir
-        id: tox-dir
-        uses: actions/cache@v3
-        with:
-          path: .tox
-          key: tox-${{ github.job }}-${{ hashFiles('poetry.lock', 'tox.ini') }}
-          restore-keys: tox-${{ github.job }}-
-      - run: tox run -e lint
-        env:
-          SKIP: black,isort,poetry-audit
+      - name: Run lint
+        run: hatch run lint:all
 
   tests:
+    name: Python ${{ matrix.python-version }} on ${{ startsWith(matrix.os, 'macos-') && 'macOS' || startsWith(matrix.os, 'windows-') && 'Windows' || 'Linux' }}
+    runs-on: ${{ matrix.os }}
+
     needs: lint
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
         python-version: ["3.10", "3.11"]
 
-    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
-      - run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
+      - name: Get pip cache dir
+        run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
         # no hardcode os-specific path
         id: pip-cache-dir
-      - name: pip cache
+      - name: Cache ${{ steps.pip-cache-dir.outputs.dir }}
         id: pip-cache
         uses: actions/cache@v3
         with:
           path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
+          key: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}
           restore-keys: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-
 
-      - run: pip install tox 'poetry>=1.4.0'
+      - name: Install Hatch
+        run: pip install --upgrade hatch
 
       - name: Show versions
         run: |
           uname -a
           python3 --version
-          echo "tox: $(tox --version)"
-          poetry --version
+          hatch --version
 
-      - name: tox dir
-        id: tox-dir
-        uses: actions/cache@v3
-        with:
-          path: .tox
-          key: tox-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock', 'tox.ini') }}
-          restore-keys: tox-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-
-      - run: tox run -e tests
-        # Run tox using py: The current Python version tox is using
+      - name: Run tests
+        run: hatch run cov
 
   build:
     needs: tests
@@ -107,10 +90,11 @@ jobs:
         with:
           python-version: "3.10"
 
-      - run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
+      - name: Get pip cache dir
+        run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
         # no hardcode os-specific path
         id: pip-cache-dir
-      - name: pip cache
+      - name: Cache ${{ steps.pip-cache-dir.outputs.dir }}
         id: pip-cache
         uses: actions/cache@v3
         with:
@@ -118,7 +102,8 @@ jobs:
           key: pip-${{ github.job }}-${{ hashFiles('pyproject.toml') }}
           restore-keys: pip-${{ github.job }}-
 
-      - run: pip install build
+      - name: Install build
+        run: pip install --upgrade build
 
       - name: Show versions
         run: |
@@ -126,4 +111,5 @@ jobs:
           python3 --version
           python3 -m build --version
 
-      - run: python3 -m build
+      - name: Build distributions
+        run: python3 -m build

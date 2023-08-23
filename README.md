@@ -1,9 +1,11 @@
 # py-frontmatter
 
+[![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![formatter](https://img.shields.io/badge/%20formatter-docformatter-fedcba.svg)](https://github.com/PyCQA/docformatter)
-[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
-[![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Check](https://github.com/koyeung/py-frontmatter/actions/workflows/check.yml/badge.svg)](https://github.com/koyeung/py-frontmatter/actions/workflows/check.yml)
+
 
 To manipulate front matter in document file.
 
@@ -110,3 +112,9 @@ tags:
 # header
 text
 ```
+
+## License
+
+`py-frontmatter` is distributed under the terms of the following licenses:
+
+- [Apache-2.0](https://spdx.org/licenses/Apache-2.0.html)

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
+#
+# SPDX-License-Identifier: Apache-2.0
 from typing import TextIO
 
 from ruamel.yaml import YAML

@@ -72,7 +72,10 @@ dependencies = [
   "pyproject-fmt>=1.0.0",
 ]
 [tool.hatch.envs.lint.scripts]
-typing = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
+typing = [
+  "mypy --version",
+  "mypy --install-types --non-interactive {args:src/py_frontmatter tests}",
+]
 style = [
   "pyproject-fmt --check pyproject.toml",
   "ruff --version",

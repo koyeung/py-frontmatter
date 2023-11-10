@@ -27,7 +27,7 @@ repos:
             .*/pyproject.toml
           )$
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: "1.0.0"
+    rev: "1.5.1"
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/PyCQA/docformatter.git

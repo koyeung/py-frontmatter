@@ -56,9 +56,7 @@ def test_add_item__jsonpath_not_exists(sample):
         == """\
 ---
 title: Hacker's note
-tags:
-- a
-- b
+tags: [a, b]
 new_tags:
 - c
 ---

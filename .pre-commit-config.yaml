@@ -35,12 +35,11 @@ repos:
     hooks:
       - id: docformatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.280
+    # Ruff version.
+    rev: v0.3.0
     hooks:
+      # Run the linter.
       - id: ruff
-        # uncomment below when it is ready to apply fix:
-        # args: [ --fix, --exit-non-zero-on-fix ]
-  - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 23.7.0
-    hooks:
-      - id: black
+        args: [ --fix ]
+      # Run the formatter.
+      - id: ruff-format

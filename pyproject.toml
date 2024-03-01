@@ -67,9 +67,8 @@ python = ["3.10", "3.11", "3.12"]
 [tool.hatch.envs.lint]
 detached = true
 dependencies = [
-  "black>=23.1.0",
   "mypy>=1.0.0",
-  "ruff>=0.0.243",
+  "ruff>=0.3.0",
   "pyproject-fmt>=1.0.0",
 ]
 [tool.hatch.envs.lint.scripts]
@@ -80,16 +79,14 @@ typing = [
 style = [
   "pyproject-fmt --check pyproject.toml",
   "ruff --version",
-  "ruff {args:.}",
-  "black --version",
-  "black --check --diff {args:.}",
+  "ruff check {args:.}",
+  "ruff format --diff",
 ]
 fmt = [
   "pyproject-fmt pyproject.toml",
   "ruff --version",
-  "ruff --fix {args:.}",
-  "black --version",
-  "black {args:.}",
+  "ruff check --fix {args:.}",
+  "ruff format",
   "style",
 ]
 all = [
@@ -99,6 +96,8 @@ all = [
 
 [tool.ruff]
 src = ["src"]
+
+[tool.ruff.lint]
 select = [
   "A",
   "ARG",
@@ -135,19 +134,21 @@ ignore = [
   "S105", "S106", "S107",
   # Ignore complexity
   "C901", "PLR0911", "PLR0912", "PLR0913", "PLR0915",
+  # Ignore implicit string concatenation
+  "ISC001",
 ]
 unfixable = [
   # Don't touch unused imports
   "F401",
 ]
 
-[tool.ruff.flake8-tidy-imports]
+[tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "parents"
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["py_frontmatter"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 # Tests can use magic values, assertions, and relative imports
 "tests/**/*" = ["PLR2004", "S101", "TID252"]
 

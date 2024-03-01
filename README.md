@@ -1,11 +1,9 @@
 # py-frontmatter
 
 [![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![formatter](https://img.shields.io/badge/%20formatter-docformatter-fedcba.svg)](https://github.com/PyCQA/docformatter)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Check](https://github.com/koyeung/py-frontmatter/actions/workflows/check.yml/badge.svg)](https://github.com/koyeung/py-frontmatter/actions/workflows/check.yml)
-
 
 To manipulate front matter in document file.
 
@@ -18,6 +16,7 @@ pip install py-frontmatter
 ## Usage
 
 Given text file:
+
 ```markdown
 ---
 title: Hacker's note
@@ -30,6 +29,7 @@ text
 ### Get or set whole section of front matter
 
 To retrieve front matter as JSON:
+
 ```commandline
 % frontmatter get note.md | jq
 {
@@ -42,6 +42,7 @@ To retrieve front matter as JSON:
 ```
 
 To replace the front matter:
+
 ```commandline
 % echo '{"title": "My note", "tags": ["a", "b", "c"]}' | frontmatter set note.md
 % cat note.md

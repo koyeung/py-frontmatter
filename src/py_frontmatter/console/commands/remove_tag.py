@@ -29,7 +29,7 @@ class RemoveTagCommand(BaseCommand):
         return parser
 
     def handle(self, args: argparse.Namespace):
-        LOGGER.debug(f"{args=}")
+        LOGGER.debug("args=%s", args)
 
         with closing(args.file):
             document = load_document(args.file)

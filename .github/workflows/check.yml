@@ -35,8 +35,11 @@ jobs:
           python3 --version
           hatch --version
 
-      - name: Run lint
-        run: hatch run lint:all
+      - name: Run static analysis
+        run: hatch fmt --check
+
+      - name: Run types check
+        run: hatch run types:check
 
   tests:
     name: Python ${{ matrix.python-version }} on ${{ startsWith(matrix.os, 'macos-') && 'macOS' || startsWith(matrix.os, 'windows-') && 'Windows' || 'Linux' }}
@@ -78,7 +81,7 @@ jobs:
           hatch --version
 
       - name: Run tests
-        run: hatch run cov
+        run: hatch test --cover
 
   build:
     needs: tests

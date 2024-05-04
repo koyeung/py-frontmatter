@@ -14,6 +14,9 @@ env:
   PYTHONUNBUFFERED: "1"
   FORCE_COLOR: "1"
 
+permissions:
+  contents: read
+
 jobs:
   run:
     name: Python ${{ matrix.python-version }} on ${{ startsWith(matrix.os, 'macos-') && 'macOS' || startsWith(matrix.os, 'windows-') && 'Windows' || 'Linux' }}
@@ -37,6 +40,9 @@ jobs:
 
     - name: Run static analysis
       run: hatch fmt --check
+
+    - name: Run types check
+      run: hatch run types:check
 
     - name: Run tests
       run: hatch test --python ${{ matrix.python-version }} --cover --randomize --parallel --retries 2 --retry-delay 1

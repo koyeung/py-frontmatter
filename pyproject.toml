@@ -44,8 +44,26 @@ frontmatter = "py_frontmatter.console.application:main"
 [tool.hatch.version]
 path = "src/py_frontmatter/__about__.py"
 
+[tool.hatch.env]
+requires = [
+  "hatch-pip-compile",
+]
+
+[tool.hatch.envs.default]
+type = "pip-compile"
+pip-compile-constraint = "default"
+pip-compile-hashes = true
+pip-compile-resolver = "uv"
+pip-compile-installer = "uv"
+
 [tool.hatch.envs.hatch-static-analysis]
 config-path = "ruff_defaults.toml"
+
+type = "pip-compile"
+# pip-compile-constraint = "default"
+pip-compile-hashes = true
+pip-compile-resolver = "uv"
+pip-compile-installer = "uv"
 
 [tool.ruff]
 # whenever hatch is upgraded,
@@ -69,6 +87,16 @@ check = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
 [tool.mypy]
 ignore_missing_imports = true
 
+[tool.hatch.envs.hatch-test]
+type = "pip-compile"
+pip-compile-constraint = "default"
+pip-compile-hashes = true
+pip-compile-resolver = "uv"
+pip-compile-installer = "uv"
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.10", "3.11", "3.12"]
+
 [tool.coverage.run]
 source_pkgs = ["py_frontmatter", "tests"]
 branch = true
@@ -88,5 +116,3 @@ exclude_lines = [
   "if TYPE_CHECKING:",
 ]
 
-[[tool.hatch.envs.hatch-test.matrix]]
-python = ["3.10", "3.11", "3.12"]

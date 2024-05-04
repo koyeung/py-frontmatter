@@ -25,7 +25,9 @@ def add_item(*, document: Document, jsonpath: str, item: str) -> Document:
     matches = jsonpath_expr.find(meta)
 
     if not matches:
-        LOGGER.debug(f"create new list in path {jsonpath=} with element {item=}")
+        LOGGER.debug(
+            "create new list in path jsonpath=%s with element item=%s", jsonpath, item
+        )
         jsonpath_expr.update_or_create(meta, [item])
         return document
 
@@ -60,7 +62,7 @@ def remove_item(
             msg = f"unable to locate jsonpath={jsonpath!r}"
             raise RuntimeError(msg)
 
-        LOGGER.debug(f"{jsonpath=} not exists; no action")
+        LOGGER.debug("jsonpath=%s not exists; no action", jsonpath)
         return document
 
     if len(matches) > 1:  # pragma: no cover
@@ -70,7 +72,7 @@ def remove_item(
     found = matches[0]
 
     if item not in found.value:
-        LOGGER.warning(f"item doesn't exists in list {jsonpath=}, no action")
+        LOGGER.warning("item doesn't exists in list jsonpath=%s, no action", jsonpath)
         return document
 
     found.value.remove(item)

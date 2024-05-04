@@ -10,30 +10,24 @@ from py_frontmatter.core.load import load_document
 
 
 @pytest.mark.parametrize(
-    ["text"],
+    "text",
     [
-        (
-            """\
+        """\
 ---
 # some comment
 tags: [a, b]
 ---
 hello world!""",
-        ),
-        (
-            """\
+        """\
 ---
 ---
 hello world!""",
-        ),
-        (
-            """\
+        """\
 ---
 # some comment
 tags: [a, b]
 ---
 """,
-        ),
     ],
 )
 def test_round_trip__same_input_output(text):

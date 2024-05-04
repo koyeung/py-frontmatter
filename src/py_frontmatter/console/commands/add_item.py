@@ -31,7 +31,7 @@ class AddItemCommand(BaseCommand):
         return parser
 
     def handle(self, args: argparse.Namespace) -> None:
-        LOGGER.debug(f"{args=}")
+        LOGGER.debug("args=%s", args)
 
         with closing(args.file):
             document = load_document(args.file)

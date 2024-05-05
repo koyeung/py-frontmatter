@@ -32,128 +32,70 @@ dependencies = [
   "jsonpath-ng>=1.5.3",
   "ruamel.yaml>=0.17.21",
 ]
+
 [project.urls]
 Documentation = "https://github.com/koyeung/py-frontmatter#readme"
 Issues = "https://github.com/koyeung/py-frontmatter/issues"
 Source = "https://github.com/koyeung/py-frontmatter"
+
 [project.scripts]
 frontmatter = "py_frontmatter.console.application:main"
 
 [tool.hatch.version]
 path = "src/py_frontmatter/__about__.py"
 
+[tool.hatch.env]
+requires = [
+  "hatch-pip-compile",
+]
+
 [tool.hatch.envs.default]
-dependencies = [
-  "coverage[toml]>=6.5",
-  "pytest",
-  "pytest-cov",
-]
+type = "pip-compile"
+pip-compile-constraint = "default"
+pip-compile-hashes = true
+pip-compile-resolver = "uv"
+pip-compile-installer = "uv"
 
-[tool.hatch.envs.default.scripts]
-test = "pytest {args:tests}"
-test-cov = "coverage run -m pytest {args:tests}"
-cov-report = [
-  "- coverage combine",
-  "coverage report",
-]
-cov = [
-  "test-cov",
-  "cov-report",
-]
+[tool.hatch.envs.hatch-static-analysis]
+config-path = "ruff_defaults.toml"
 
-[[tool.hatch.envs.all.matrix]]
-python = ["3.10", "3.11", "3.12"]
-
-[tool.hatch.envs.lint]
-detached = true
-dependencies = [
-  "mypy>=1.0.0",
-  "ruff>=0.3.0",
-  "pyproject-fmt>=1.0.0",
-]
-[tool.hatch.envs.lint.scripts]
-typing = [
-  "mypy --version",
-  "mypy --install-types --non-interactive {args:src/py_frontmatter tests}",
-]
-style = [
-  "pyproject-fmt --check pyproject.toml",
-  "ruff --version",
-  "ruff check {args:.}",
-  "ruff format --diff",
-]
-fmt = [
-  "pyproject-fmt pyproject.toml",
-  "ruff --version",
-  "ruff check --fix {args:.}",
-  "ruff format",
-  "style",
-]
-all = [
-  "style",
-  "typing",
-]
+type = "pip-compile"
+# pip-compile-constraint = "default"
+pip-compile-hashes = true
+pip-compile-resolver = "uv"
+pip-compile-installer = "uv"
 
 [tool.ruff]
-src = ["src"]
+# whenever hatch is upgraded,
+# pls run: hatch fmt --check --sync
+extend = "ruff_defaults.toml"
 
-[tool.ruff.lint]
-select = [
-  "A",
-  "ARG",
-  "B",
-  "C",
-  "DTZ",
-  "E",
-  "EM",
-  "F",
-  "FBT",
-  "I",
-  "ICN",
-  "ISC",
-  "N",
-  "PLC",
-  "PLE",
-  "PLR",
-  "PLW",
-  "Q",
-  "RUF",
-  "S",
-  "T",
-  "TID",
-  "UP",
-  "W",
-  "YTT",
-]
-ignore = [
-  # Allow non-abstract empty methods in abstract base classes
-  "B027",
-  # Allow boolean positional values in function calls, like `dict.get(... True)`
-  "FBT003",
-  # Ignore checks for possible passwords
-  "S105", "S106", "S107",
-  # Ignore complexity
-  "C901", "PLR0911", "PLR0912", "PLR0913", "PLR0915",
-  # Ignore implicit string concatenation
-  "ISC001",
-]
-unfixable = [
-  # Don't touch unused imports
-  "F401",
-]
+# revert line-length to match black
+line-length = 88
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "parents"
 
-[tool.ruff.lint.isort]
-known-first-party = ["py_frontmatter"]
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
 
-[tool.ruff.lint.per-file-ignores]
-# Tests can use magic values, assertions, and relative imports
-"tests/**/*" = ["PLR2004", "S101", "TID252"]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
 
-[tool.pytest.ini_options]
-addopts = "--doctest-modules --no-cov-on-fail --cov-report term-missing:skip-covered"
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.hatch.envs.hatch-test]
+type = "pip-compile"
+pip-compile-constraint = "default"
+pip-compile-hashes = true
+pip-compile-resolver = "uv"
+pip-compile-installer = "uv"
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.10", "3.11", "3.12"]
 
 [tool.coverage.run]
 source_pkgs = ["py_frontmatter", "tests"]
@@ -174,5 +116,3 @@ exclude_lines = [
   "if TYPE_CHECKING:",
 ]
 
-[tool.mypy]
-ignore_missing_imports = true

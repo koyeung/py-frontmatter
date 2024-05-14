@@ -2,7 +2,7 @@ name: Check
 
 on: [push]
 
-# Read-only on contents; 
+# Read-only on contents;
 # it should break if there is need to upgrade requirements lockfiles
 permissions:
   contents: read

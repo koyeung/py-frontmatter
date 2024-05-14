@@ -10,7 +10,7 @@ description = "Manipulate YAML front matter."
 readme = "README.md"
 keywords = [
 ]
-license = {text = "Apache-2.0"}
+license = { text = "Apache-2.0" }
 authors = [
   { name = "YEUNG King On", email = "koyeung@gmail.com" },
 ]
@@ -22,39 +22,36 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dynamic = [
   "version",
 ]
 dependencies = [
   "jsonpath-ng>=1.5.3",
-  "ruamel.yaml>=0.17.21",
+  "ruamel-yaml>=0.17.21",
 ]
 
-[project.urls]
-Documentation = "https://github.com/koyeung/py-frontmatter#readme"
-Issues = "https://github.com/koyeung/py-frontmatter/issues"
-Source = "https://github.com/koyeung/py-frontmatter"
+urls.Documentation = "https://github.com/koyeung/py-frontmatter#readme"
+urls.Issues = "https://github.com/koyeung/py-frontmatter/issues"
+urls.Source = "https://github.com/koyeung/py-frontmatter"
+scripts.frontmatter = "py_frontmatter.console.application:main"
 
-[project.scripts]
-frontmatter = "py_frontmatter.console.application:main"
-
-[tool.hatch.version]
-path = "src/py_frontmatter/__about__.py"
-
-[tool.hatch.env]
-requires = [
-  "hatch-pip-compile",
-]
-
-[tool.hatch.envs.default]
+[tool.hatch.envs.hatch-test]
 type = "pip-compile"
 pip-compile-constraint = "default"
 pip-compile-hashes = true
 pip-compile-resolver = "uv"
 pip-compile-installer = "uv"
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = [
+  "3.10",
+  "3.11",
+  "3.12",
+]
+
+[tool.hatch.version]
+path = "src/py_frontmatter/__about__.py"
 
 [tool.hatch.envs.hatch-static-analysis]
 config-path = "ruff_defaults.toml"
@@ -64,6 +61,26 @@ type = "pip-compile"
 pip-compile-hashes = true
 pip-compile-resolver = "uv"
 pip-compile-installer = "uv"
+
+[tool.hatch.env]
+requires = [
+  "hatch-pip-compile",
+]
+
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
+
+[tool.hatch.envs.default]
+type = "pip-compile"
+pip-compile-constraint = "default"
+pip-compile-hashes = true
+pip-compile-resolver = "uv"
+pip-compile-installer = "uv"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
 
 [tool.ruff]
 # whenever hatch is upgraded,
@@ -76,39 +93,6 @@ line-length = 88
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "parents"
 
-[tool.hatch.envs.types]
-extra-dependencies = [
-  "mypy>=1.0.0",
-]
-
-[tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
-
-[tool.mypy]
-ignore_missing_imports = true
-
-[tool.hatch.envs.hatch-test]
-type = "pip-compile"
-pip-compile-constraint = "default"
-pip-compile-hashes = true
-pip-compile-resolver = "uv"
-pip-compile-installer = "uv"
-
-[[tool.hatch.envs.hatch-test.matrix]]
-python = ["3.10", "3.11", "3.12"]
-
-[tool.coverage.run]
-source_pkgs = ["py_frontmatter", "tests"]
-branch = true
-parallel = true
-omit = [
-  "src/py_frontmatter/__about__.py",
-]
-
-[tool.coverage.paths]
-py_frontmatter = ["src/py_frontmatter", "*/py-frontmatter/src/py_frontmatter"]
-tests = ["tests", "*/py-frontmatter/tests"]
-
 [tool.coverage.report]
 exclude_lines = [
   "no cov",
@@ -116,3 +100,26 @@ exclude_lines = [
   "if TYPE_CHECKING:",
 ]
 
+[tool.coverage.paths]
+py_frontmatter = [
+  "src/py_frontmatter",
+  "*/py-frontmatter/src/py_frontmatter",
+]
+tests = [
+  "tests",
+  "*/py-frontmatter/tests",
+]
+
+[tool.coverage.run]
+source_pkgs = [
+  "py_frontmatter",
+  "tests",
+]
+branch = true
+parallel = true
+omit = [
+  "src/py_frontmatter/__about__.py",
+]
+
+[tool.mypy]
+ignore_missing_imports = true

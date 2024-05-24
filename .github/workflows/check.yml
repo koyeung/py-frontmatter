@@ -32,7 +32,7 @@ jobs:
           restore-keys: pip-${{ github.job }}
 
       - name: Install Hatch
-        run: pip install --upgrade hatch
+        uses: pypa/hatch@install
 
       - name: Show versions
         run: |
@@ -77,7 +77,7 @@ jobs:
           restore-keys: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-
 
       - name: Install Hatch
-        run: pip install --upgrade hatch
+        uses: pypa/hatch@install
 
       - name: Show versions
         run: |

@@ -90,8 +90,7 @@ extend = "ruff_defaults.toml"
 # revert line-length to match black
 line-length = 88
 
-[tool.ruff.lint.flake8-tidy-imports]
-ban-relative-imports = "parents"
+lint.flake8-tidy-imports.ban-relative-imports = "parents"
 
 [tool.coverage.report]
 exclude_lines = [

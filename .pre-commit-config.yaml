@@ -7,18 +7,29 @@ repos:
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
+      - id: check-executables-have-shebangs
       - id: check-json
       - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+        exclude: '.*\.rs$'
       - id: check-symlinks
       - id: check-toml
+      - id: check-vcs-permalinks
       - id: check-xml
       - id: check-yaml
       - id: debug-statements
+      - id: destroyed-symlinks
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
       - id: detect-private-key
       - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: pretty-format-json
+        args: [--autofix]
       - id: trailing-whitespace
   - repo: https://github.com/abravalheri/validate-pyproject
-    rev: v0.17
+    rev: v0.18
     hooks:
       - id: validate-pyproject
         files: |
@@ -27,7 +38,7 @@ repos:
             .*/pyproject.toml
           )$
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: "2.0.4"
+    rev: "2.1.3"
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/PyCQA/docformatter.git
@@ -36,10 +47,10 @@ repos:
       - id: docformatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.4.4
+    rev: v0.4.7
     hooks:
       # Run the linter.
       - id: ruff
-        args: [ --fix ]
+        args: [--fix]
       # Run the formatter.
       - id: ruff-format

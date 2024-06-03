@@ -36,6 +36,30 @@ urls.Issues = "https://github.com/koyeung/py-frontmatter/issues"
 urls.Source = "https://github.com/koyeung/py-frontmatter"
 scripts.frontmatter = "py_frontmatter.console.application:main"
 
+[tool.hatch.version]
+path = "src/py_frontmatter/__about__.py"
+
+[tool.hatch.env]
+requires = [
+  "hatch-pip-compile",
+]
+
+[tool.hatch.envs.default]
+type = "pip-compile"
+pip-compile-constraint = "default"
+pip-compile-hashes = true
+pip-compile-resolver = "uv"
+pip-compile-installer = "uv"
+
+[tool.hatch.envs.hatch-static-analysis]
+config-path = "ruff_defaults.toml"
+
+type = "pip-compile"
+# pip-compile-constraint = "default"
+pip-compile-hashes = true
+pip-compile-resolver = "uv"
+pip-compile-installer = "uv"
+
 [tool.hatch.envs.hatch-test]
 type = "pip-compile"
 pip-compile-constraint = "default"
@@ -50,37 +74,13 @@ python = [
   "3.12",
 ]
 
-[tool.hatch.version]
-path = "src/py_frontmatter/__about__.py"
-
-[tool.hatch.envs.hatch-static-analysis]
-config-path = "ruff_defaults.toml"
-
-type = "pip-compile"
-# pip-compile-constraint = "default"
-pip-compile-hashes = true
-pip-compile-resolver = "uv"
-pip-compile-installer = "uv"
-
-[tool.hatch.env]
-requires = [
-  "hatch-pip-compile",
-]
-
-[tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
-
-[tool.hatch.envs.default]
-type = "pip-compile"
-pip-compile-constraint = "default"
-pip-compile-hashes = true
-pip-compile-resolver = "uv"
-pip-compile-installer = "uv"
-
 [tool.hatch.envs.types]
 extra-dependencies = [
   "mypy>=1.0.0",
 ]
+
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
 
 [tool.ruff]
 # whenever hatch is upgraded,

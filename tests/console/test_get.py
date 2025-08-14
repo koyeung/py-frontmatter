@@ -8,7 +8,12 @@ def test_get(sample, capsys):
     run_console_script("frontmatter", "get", str(sample))
 
     captured = capsys.readouterr()
-    assert captured.out == r"""\ {"title": "Hacker's note", "tags": ["a", "b"]}"""
+    assert (
+        captured.out
+        == """\
+{"title": "Hacker's note", "tags": ["a", "b"]}
+"""
+    )
 
 
 def test_get__shell_quote(sample, capsys):
@@ -16,5 +21,8 @@ def test_get__shell_quote(sample, capsys):
 
     captured = capsys.readouterr()
     assert (
-        captured.out == r"""\ '{"title": "Hacker'"'"'s note", "tags": ["a", "b"]}'."""
+        captured.out
+        == """\
+'{"title": "Hacker'"'"'s note", "tags": ["a", "b"]}'
+"""
     )

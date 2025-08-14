@@ -10,15 +10,17 @@ def test_remove_item(sample):
     run_console_script(
         "frontmatter", "remove-item", "--jsonpath", "$.tags", "--item", "a", str(sample)
     )
+
     assert (
         sample.read_text()
-        == r"""\ --- title: Hacker's note.
-
-           tags: [b]
-           ---
-           # header
-           text
-           """
+        == """\
+---
+title: Hacker's note
+tags: [b]
+---
+# header
+text
+"""
     )
 
 
@@ -26,15 +28,17 @@ def test_remove__item_not_exists(sample):
     run_console_script(
         "frontmatter", "remove-item", "--jsonpath", "$.tags", "--item", "c", str(sample)
     )
+
     assert (
         sample.read_text()
-        == r"""\ --- title: Hacker's note.
-
-           tags: [a, b]
-           ---
-           # header
-           text
-           """
+        == """\
+---
+title: Hacker's note
+tags: [a, b]
+---
+# header
+text
+"""
     )
 
 

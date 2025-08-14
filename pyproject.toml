@@ -22,6 +22,7 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
 ]
 dynamic = [
   "version",
@@ -91,6 +92,8 @@ extend = "ruff_defaults.toml"
 line-length = 88
 
 lint.flake8-tidy-imports.ban-relative-imports = "parents"
+
+lint.preview = false
 
 [tool.coverage.report]
 exclude_lines = [

@@ -3,7 +3,7 @@
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -29,7 +29,7 @@ repos:
         args: [--autofix]
       - id: trailing-whitespace
   - repo: https://github.com/abravalheri/validate-pyproject
-    rev: v0.18
+    rev: v0.24.1
     hooks:
       - id: validate-pyproject
         files: |
@@ -38,16 +38,12 @@ repos:
             .*/pyproject.toml
           )$
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: "2.1.3"
+    rev: "v2.6.0"
     hooks:
       - id: pyproject-fmt
-  - repo: https://github.com/PyCQA/docformatter.git
-    rev: v1.7.5
-    hooks:
-      - id: docformatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.4.7
+    rev: v0.12.8
     hooks:
       # Run the linter.
       - id: ruff

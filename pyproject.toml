@@ -37,6 +37,14 @@ urls.Issues = "https://github.com/koyeung/py-frontmatter/issues"
 urls.Source = "https://github.com/koyeung/py-frontmatter"
 scripts.frontmatter = "py_frontmatter.console.application:main"
 
+[dependency-groups]
+dev = [
+  "mypy>=1.13",
+  "pytest>=8.3.3",
+  "pytest-cov>=5",
+  "pytest-xdist>=3.6.1",
+]
+
 [tool.hatch.version]
 path = "src/py_frontmatter/__about__.py"
 

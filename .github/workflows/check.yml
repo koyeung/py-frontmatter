@@ -15,36 +15,40 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Get pip cache dir
-        run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
-        # no hardcode os-specific path
-        id: pip-cache-dir
-      - name: Cache ${{ steps.pip-cache-dir.outputs.dir }}
-        id: pip-cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ github.job }}-${{ hashFiles('pyproject.toml') }}
-          restore-keys: pip-${{ github.job }}
-
-      - name: Install Hatch
-        uses: pypa/hatch@install
 
       - name: Show versions
         run: |
           uname -a
           python3 --version
-          hatch --version
+          uv --version
 
-      - name: Run static analysis
-        run: hatch fmt --check
+      - name: Install the project
+        run: uv sync --all-packages --all-extras --dev
 
-      - name: Run types check
-        run: hatch run types:check
+      - name: Format
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: "format --check"
+
+      - name: Type check
+        run: uv run --with=pip mypy --install-types --non-interactive src tests
+
+      - name: Static analysis
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: "check --statistics"
+
+      - name: Minimize uv cache
+        run: uv cache prune --ci
 
   tests:
     name: Python ${{ matrix.python-version }} on ${{ startsWith(matrix.os, 'macos-') && 'macOS' || startsWith(matrix.os, 'windows-') && 'Windows' || 'Linux' }}
@@ -59,34 +63,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Get pip cache dir
-        run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
-        # no hardcode os-specific path
-        id: pip-cache-dir
-      - name: Cache ${{ steps.pip-cache-dir.outputs.dir }}
-        id: pip-cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}
-          restore-keys: pip-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}-
-
-      - name: Install Hatch
-        uses: pypa/hatch@install
-
       - name: Show versions
         run: |
           uname -a
           python3 --version
-          hatch --version
+          uv --version
+
+      - name: Install the project
+        run: uv sync --all-packages --all-extras --dev
 
       - name: Run tests
-        run: hatch test --cover
+        run: uv run pytest tests -n auto --cov src
+
+      - name: Minimize uv cache
+        run: uv cache prune --ci
 
   build:
     needs: tests

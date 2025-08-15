@@ -48,56 +48,10 @@ dev = [
 [tool.hatch.version]
 path = "src/py_frontmatter/__about__.py"
 
-[tool.hatch.env]
-requires = [
-  "hatch-pip-compile",
-]
-
-[tool.hatch.envs.default]
-type = "pip-compile"
-pip-compile-constraint = "default"
-pip-compile-hashes = true
-pip-compile-resolver = "uv"
-pip-compile-installer = "uv"
-
-[tool.hatch.envs.hatch-static-analysis]
-config-path = "ruff_defaults.toml"
-
-type = "pip-compile"
-# pip-compile-constraint = "default"
-pip-compile-hashes = true
-pip-compile-resolver = "uv"
-pip-compile-installer = "uv"
-
-[tool.hatch.envs.hatch-test]
-type = "pip-compile"
-pip-compile-constraint = "default"
-pip-compile-hashes = true
-pip-compile-resolver = "uv"
-pip-compile-installer = "uv"
-
-[[tool.hatch.envs.hatch-test.matrix]]
-python = [
-  "3.10",
-  "3.11",
-  "3.12",
-]
-
-[tool.hatch.envs.types]
-extra-dependencies = [
-  "mypy>=1.0.0",
-]
-
-[tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/py_frontmatter tests}"
-
 [tool.ruff]
 # whenever hatch is upgraded,
 # pls run: hatch fmt --check --sync
 extend = "ruff_defaults.toml"
-
-# revert line-length to match black
-line-length = 88
 
 lint.flake8-tidy-imports.ban-relative-imports = "parents"
 

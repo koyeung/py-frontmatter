@@ -8,7 +8,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "monthly"
-    target-branch: "develop"
+    target-branch: "main"
     groups:
       # one PR for all
       all:
@@ -19,7 +19,7 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    target-branch: "develop"
+    target-branch: "main"
     groups:
       # one PR for all
       all:

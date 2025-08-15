@@ -11,33 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Get pip cache dir
-        run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
-        # no hardcode os-specific path
-        id: pip-cache-dir
-      - name: Cache ${{ steps.pip-cache-dir.outputs.dir }}
-        id: pip-cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.pip-cache-dir.outputs.dir }}
-          key: pip-${{ github.job }}-${{ hashFiles('pyproject.toml') }}
-          restore-keys: pip-${{ github.job }}-
-
-      - name: Install build
-        run: pip install build
-
-      - name: Show versions
-        run: |
-          uname -a
-          python3 --version
-          python3 -m build --version
-
       - name: Build distributions
-        run: python3 -m build
+        run: uv build
 
       - name: Publish distribution to PIPI
         if: startsWith(github.ref, 'refs/tags')

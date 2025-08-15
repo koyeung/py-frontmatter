@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+* revise pre-commit hooks
+* cleanup unused hatch settings
+* add justfile
 
 ## [0.5.0a3] - 2023-08-23
 ### Changed

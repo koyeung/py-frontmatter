@@ -1,7 +1,6 @@
 # py-frontmatter
 
 [![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
-[![formatter](https://img.shields.io/badge/%20formatter-docformatter-fedcba.svg)](https://github.com/PyCQA/docformatter)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Check](https://github.com/koyeung/py-frontmatter/actions/workflows/check.yml/badge.svg)](https://github.com/koyeung/py-frontmatter/actions/workflows/check.yml)
 

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.5.0a5] - 2025-08-16
+- fix trusted publishing
+
 ## [0.5.0a4] - 2025-08-16
 ### Changed
 - migrate to [uv](https://docs.astral.sh/uv/)

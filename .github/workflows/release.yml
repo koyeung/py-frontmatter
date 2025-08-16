@@ -6,6 +6,9 @@ jobs:
   publish:
     name: Build and publish Python distribution to PYPI
     runs-on: ubuntu-latest
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write
     steps:
       - uses: actions/checkout@v5
       - name: Install uv

@@ -3,6 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- use [hatch-vcs](https://pypi.org/project/hatch-vcs/) for package versioning.
 
 ## [0.5.0a5] - 2025-08-16
 - fix trusted publishing

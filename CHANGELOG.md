@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- simplify ruff lint config
+
 ## [0.5.0a6] - 2025-08-16
 - use [hatch-vcs](https://pypi.org/project/hatch-vcs/) for package versioning.
 

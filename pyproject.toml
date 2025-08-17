@@ -49,11 +49,24 @@ source = "vcs"
 raw-options = { local_scheme = "no-local-version" }
 
 [tool.ruff]
-# whenever hatch is upgraded,
-# pls run: hatch fmt --check --sync
-extend = "ruff_defaults.toml"
+lint.select = [
+  "ALL",
+]
 
-lint.flake8-tidy-imports.ban-relative-imports = "parents"
+lint.ignore = [
+  "ANN", # let mypy do the checking
+  "COM", # let formatter do the checking
+  "D",   # not much on doc style
+]
+
+lint.per-file-ignores."**/tests/**/*" = [
+  "FBT001", # ok in tests: Boolean-typed positional argument in function definition
+  "S",      # ok for security for tests
+]
+
+lint.isort.known-first-party = [
+  "src",
+]
 
 lint.preview = false
 

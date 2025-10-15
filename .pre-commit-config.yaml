@@ -42,16 +42,17 @@ repos:
             .*/pyproject.toml
           )$
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: "v2.6.0"
+    rev: v2.10.0
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/google/yamlfmt
-    rev: v0.17.2
+    rev: v0.18.0
     hooks:
       - id: yamlfmt
+        files: '.*\.(yml|yaml)$'
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.12.8
+    rev: v0.14.0
     hooks:
       # Run the linter.
       - id: ruff-check
@@ -59,6 +60,6 @@ repos:
       # Run the formatter.
       - id: ruff-format
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.8.3
+    rev: v4.9.1
     hooks:
       - id: commitizen

@@ -22,13 +22,21 @@ class RemoveItemCommand(BaseCommand):
     def register(self, subparsers) -> argparse.ArgumentParser:
         parser = super().register(subparsers)
         parser.add_argument(
-            "file", type=argparse.FileType(mode="r+"), help="document file"
+            "file",
+            type=argparse.FileType(mode="r+"),
+            help="document file",
         )
         parser.add_argument(
-            "--jsonpath", type=str, help="json path to the list", required=True
+            "--jsonpath",
+            type=str,
+            help="json path to the list",
+            required=True,
         )
         parser.add_argument(
-            "--item", type=str, help="item to be removed", required=True
+            "--item",
+            type=str,
+            help="item to be removed",
+            required=True,
         )
         return parser
 
@@ -38,6 +46,8 @@ class RemoveItemCommand(BaseCommand):
         with closing(args.file):
             document = load_document(args.file)
             document = remove_item(
-                document=document, jsonpath=args.jsonpath, item=args.item
+                document=document,
+                jsonpath=args.jsonpath,
+                item=args.item,
             )
             overwrite_file(file=args.file, document=document)

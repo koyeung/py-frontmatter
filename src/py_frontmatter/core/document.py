@@ -29,7 +29,9 @@ def add_item(*, document: Document, jsonpath: str, item: str) -> Document:
 
     if not matches:
         LOGGER.debug(
-            "create new list in path jsonpath=%s with element item=%s", jsonpath, item
+            "create new list in path jsonpath=%s with element item=%s",
+            jsonpath,
+            item,
         )
         jsonpath_expr.update_or_create(meta, [item])
         return document

@@ -6,7 +6,13 @@ from .conftest import run_console_script
 
 def test_add_item(sample):
     run_console_script(
-        "frontmatter", "add-item", "--jsonpath", "$.tags", "--item", "c", str(sample)
+        "frontmatter",
+        "add-item",
+        "--jsonpath",
+        "$.tags",
+        "--item",
+        "c",
+        str(sample),
     )
 
     assert (
@@ -24,7 +30,13 @@ text
 
 def test_add_item__item_exists(sample):
     run_console_script(
-        "frontmatter", "add-item", "--jsonpath", "$.tags", "--item", "b", str(sample)
+        "frontmatter",
+        "add-item",
+        "--jsonpath",
+        "$.tags",
+        "--item",
+        "b",
+        str(sample),
     )
 
     assert (

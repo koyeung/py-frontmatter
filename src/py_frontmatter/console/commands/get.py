@@ -21,7 +21,9 @@ class GetCommand(BaseCommand):
         parser = super().register(subparsers)
         parser.add_argument("infile", type=argparse.FileType(), help="input file")
         parser.add_argument(
-            "--sq", action="store_true", help="shell quote (experimental)"
+            "--sq",
+            action="store_true",
+            help="shell quote (experimental)",
         )
         return parser
 

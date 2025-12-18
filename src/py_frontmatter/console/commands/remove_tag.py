@@ -23,7 +23,9 @@ class RemoveTagCommand(BaseCommand):
     def register(self, subparsers) -> argparse.ArgumentParser:
         parser = super().register(subparsers)
         parser.add_argument(
-            "file", type=argparse.FileType(mode="r+"), help="document file"
+            "file",
+            type=argparse.FileType(mode="r+"),
+            help="document file",
         )
         parser.add_argument("--tag", type=str, help="tag to remove", required=True)
         return parser

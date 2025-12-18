@@ -8,7 +8,13 @@ from .conftest import run_console_script
 
 def test_remove_item(sample):
     run_console_script(
-        "frontmatter", "remove-item", "--jsonpath", "$.tags", "--item", "a", str(sample)
+        "frontmatter",
+        "remove-item",
+        "--jsonpath",
+        "$.tags",
+        "--item",
+        "a",
+        str(sample),
     )
 
     assert (
@@ -26,7 +32,13 @@ text
 
 def test_remove__item_not_exists(sample):
     run_console_script(
-        "frontmatter", "remove-item", "--jsonpath", "$.tags", "--item", "c", str(sample)
+        "frontmatter",
+        "remove-item",
+        "--jsonpath",
+        "$.tags",
+        "--item",
+        "c",
+        str(sample),
     )
 
     assert (

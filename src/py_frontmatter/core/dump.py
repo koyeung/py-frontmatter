@@ -1,11 +1,12 @@
 # SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
 #
 # SPDX-License-Identifier: Apache-2.0
-from typing import TextIO
+from typing import TYPE_CHECKING, TextIO
 
 from ruamel.yaml import YAML
 
-from .document import Document
+if TYPE_CHECKING:
+    from .document import Document
 
 
 def dump_document(document: Document, /, fp: TextIO) -> None:

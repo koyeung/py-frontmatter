@@ -3,9 +3,12 @@
 # SPDX-License-Identifier: Apache-2.0
 import logging
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 import jsonpath_ng
-import ruamel.yaml.comments
+
+if TYPE_CHECKING:
+    import ruamel.yaml.comments
 
 LOGGER = logging.getLogger(__name__)
 

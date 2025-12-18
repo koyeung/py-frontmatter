@@ -3,10 +3,13 @@
 # SPDX-License-Identifier: Apache-2.0
 import sys
 from importlib.metadata import entry_points
-from pathlib import Path
+from typing import TYPE_CHECKING
 from unittest.mock import patch
 
 import pytest
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 @pytest.fixture

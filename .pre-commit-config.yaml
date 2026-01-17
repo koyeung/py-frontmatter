@@ -1,9 +1,10 @@
-# See https://pre-commit.com for more information
-# See https://pre-commit.com/hooks.html for more hooks
+minimum_prek_version: 0.2.29
+
 # Run on stage pre-commit by default,
 # while enable action to run on stage commit-msg if chosen
 default_install_hook_types: [pre-commit, commit-msg]
 default_stages: [pre-commit]
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
@@ -37,11 +38,10 @@ repos:
     rev: v0.24.1
     hooks:
       - id: validate-pyproject
-        files: |
-          (?x)^(
-            pyproject.toml|
-            .*/pyproject.toml
-          )$
+        files:
+          glob:
+            - pyproject.toml
+            - packages/**/pyproject.toml
 
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: v2.11.1
@@ -71,5 +71,4 @@ repos:
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
     rev: v1.19.0
     hooks:
-      # Run the linter.
       - id: zizmor

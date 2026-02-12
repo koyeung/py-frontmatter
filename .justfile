@@ -2,7 +2,7 @@ default:
     just --list
 
 # Update dependencies versions in lock files (no sync to venv)
-update:
+upgrade-lock:
     uv lock --upgrade
 
 # Perform audit check
@@ -11,8 +11,8 @@ audit:
     osv-scanner scan --lockfile requirements.txt:<(uv export --quiet --frozen)
 
 # Upgrade venv
-upgrade:
-    uv sync --all-packages
+sync-venv *ARGS:
+    uv sync --frozen {{ ARGS }}
 
 # Format check
 format:

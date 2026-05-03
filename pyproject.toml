@@ -9,8 +9,7 @@ requires = [
 name = "py-frontmatter"
 description = "Manipulate YAML front matter."
 readme = "README.md"
-keywords = [
-]
+keywords = []
 license = { text = "Apache-2.0" }
 authors = [
   { name = "YEUNG King On", email = "koyeung@gmail.com" },
@@ -29,7 +28,6 @@ dependencies = [
   "jsonpath-ng>=1.5.3",
   "ruamel-yaml>=0.17.21",
 ]
-
 urls.Documentation = "https://github.com/koyeung/py-frontmatter#readme"
 urls.Issues = "https://github.com/koyeung/py-frontmatter/issues"
 urls.Source = "https://github.com/koyeung/py-frontmatter"
@@ -43,58 +41,53 @@ dev = [
   "pytest-xdist>=3.6.1",
 ]
 
-[tool.hatch.version]
-source = "vcs"
-raw-options = { local_scheme = "no-local-version" }
+[tool.hatch]
+version.source = "vcs"
+version.raw-options = { local_scheme = "no-local-version" }
+
+[tool.uv]
+exclude-newer = "1 week"
 
 [tool.ruff]
 lint.select = [
   "ALL",
 ]
-
 lint.ignore = [
   "ANN", # let mypy do the checking
   "COM", # let formatter do the checking
   "D",   # not much on doc style
 ]
-
 lint.per-file-ignores."**/tests/*" = [
   "S", # ok for security for tests
 ]
-
 lint.isort.known-first-party = [
   "src",
 ]
-
 lint.preview = false
-
-[tool.coverage.report]
-exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
-]
-
-[tool.coverage.paths]
-py_frontmatter = [
-  "src/py_frontmatter",
-  "*/py-frontmatter/src/py_frontmatter",
-]
-tests = [
-  "tests",
-  "*/py-frontmatter/tests",
-]
-
-[tool.coverage.run]
-source_pkgs = [
-  "py_frontmatter",
-  "tests",
-]
-branch = true
-parallel = true
-omit = [
-  "src/py_frontmatter/__about__.py",
-]
 
 [tool.mypy]
 ignore_missing_imports = true
+
+[tool.coverage]
+run.branch = true
+run.omit = [
+  "src/py_frontmatter/__about__.py",
+]
+run.parallel = true
+run.source_pkgs = [
+  "py_frontmatter",
+  "tests",
+]
+paths.py_frontmatter = [
+  "src/py_frontmatter",
+  "*/py-frontmatter/src/py_frontmatter",
+]
+paths.tests = [
+  "tests",
+  "*/py-frontmatter/tests",
+]
+report.exclude_lines = [
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+  "no cov",
+]

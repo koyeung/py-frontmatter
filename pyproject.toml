@@ -10,7 +10,7 @@ name = "py-frontmatter"
 description = "Manipulate YAML front matter."
 readme = "README.md"
 keywords = []
-license = { text = "Apache-2.0" }
+license = "Apache-2.0"
 authors = [
   { name = "YEUNG King On", email = "koyeung@gmail.com" },
 ]
@@ -46,6 +46,9 @@ version.source = "vcs"
 version.raw-options = { local_scheme = "no-local-version" }
 
 [tool.uv]
+no-binary-package = [
+  "py-frontmatter",
+]
 exclude-newer = "1 week"
 
 [tool.ruff]

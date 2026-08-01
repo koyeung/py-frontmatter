@@ -36,4 +36,4 @@ class GetCommand(BaseCommand):
         if args.sq:
             meta_json = shlex.quote(meta_json)
 
-        print(meta_json)  # noqa: T201
+        print(meta_json)

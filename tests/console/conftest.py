@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 import sys
 from importlib.metadata import entry_points
-from pathlib import Path  # noqa: TC003
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest

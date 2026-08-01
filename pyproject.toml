@@ -10,7 +10,7 @@ name = "py-frontmatter"
 description = "Manipulate YAML front matter."
 readme = "README.md"
 keywords = []
-license = { text = "Apache-2.0" }
+license = "Apache-2.0"
 authors = [
   { name = "YEUNG King On", email = "koyeung@gmail.com" },
 ]
@@ -46,17 +46,12 @@ version.source = "vcs"
 version.raw-options = { local_scheme = "no-local-version" }
 
 [tool.uv]
+no-binary-package = [
+  "py-frontmatter",
+]
 exclude-newer = "1 week"
 
 [tool.ruff]
-lint.select = [
-  "ALL",
-]
-lint.ignore = [
-  "ANN", # let mypy do the checking
-  "COM", # let formatter do the checking
-  "D",   # not much on doc style
-]
 lint.per-file-ignores."**/tests/*" = [
   "S", # ok for security for tests
 ]

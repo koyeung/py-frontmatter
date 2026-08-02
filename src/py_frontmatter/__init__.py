@@ -4,7 +4,7 @@
 
 
 def __getattr__(name: str) -> str:
-    from importlib.metadata import version
+    from importlib.metadata import version  # noqa: PLC0415
 
     if name == "__version__":
         return version("py_frontmatter")

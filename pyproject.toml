@@ -56,9 +56,10 @@ lint.select = [
   "ALL",
 ]
 lint.ignore = [
-  "ANN", # let mypy do the checking
-  "COM", # let formatter do the checking
-  "D",   # not much on doc style
+  "ANN",    # let mypy do the checking
+  "COM",    # let formatter do the checking
+  "CPY001", # ok for Missing copyright notice at top of file
+  "D",      # not much on doc style
 ]
 lint.per-file-ignores."**/tests/*" = [
   "S", # ok for security for tests

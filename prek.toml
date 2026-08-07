@@ -45,7 +45,7 @@ hooks = [
 
 [[repos]]
 repo = "https://github.com/tox-dev/pyproject-fmt"
-rev = "v2.21.2"
+rev = "v2.26.0"
 hooks = [{ id = "pyproject-fmt" }]
 
 [[repos]]
@@ -55,15 +55,15 @@ hooks = [{ id = "yamllint", args = ["--strict"] }]
 
 [[repos]]
 repo = "https://github.com/astral-sh/ruff-pre-commit"
-rev = "v0.15.14"
+rev = "v0.16.1"
 hooks = [{ id = "ruff-check", args = ["--fix"] }, { id = "ruff-format" }]
 
 [[repos]]
 repo = "https://github.com/commitizen-tools/commitizen"
-rev = "v4.16.2"
+rev = "v4.17.0"
 hooks = [{ id = "commitizen" }]
 
 [[repos]]
 repo = "https://github.com/zizmorcore/zizmor-pre-commit"
-rev = "v1.25.2"
+rev = "v1.28.0"
 hooks = [{ id = "zizmor" }]

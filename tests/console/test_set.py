@@ -2,11 +2,17 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 import io
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pathlib import Path
+
+    import pytest
 
 from .conftest import run_console_script
 
 
-def test_set(sample, monkeypatch):
+def test_set(sample: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     meta_json = """\
 {"title": "Hacking is fun", "tags": ["b", "c"]}"""
 

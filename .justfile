@@ -35,7 +35,7 @@ lint-fix *FILE:
 test extra_param="-n auto --cov src":
     uv run pytest {{extra_param}} tests
 
-typing:
-    uv run --with=pip mypy --install-types --non-interactive src tests
+typing *PATH:
+    ty check -v {{ PATH }}
 
 check: lint format typing test

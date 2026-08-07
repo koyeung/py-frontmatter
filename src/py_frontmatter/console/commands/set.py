@@ -1,10 +1,13 @@
 # SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
 #
 # SPDX-License-Identifier: Apache-2.0
-import argparse
 import json
 import sys
-from contextlib import closing
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import argparse
 
 from py_frontmatter.core import load_document
 
@@ -18,11 +21,13 @@ class SetCommand(BaseCommand):
     name = "set"
     description = "Set front matter from json input"
 
-    def register(self, subparsers) -> argparse.ArgumentParser:
+    def register(
+        self, subparsers: argparse._SubParsersAction[argparse.ArgumentParser]
+    ) -> argparse.ArgumentParser:
         parser = super().register(subparsers)
         parser.add_argument(
             "file",
-            type=argparse.FileType(mode="r+"),
+            type=Path,
             help="document file",
         )
         return parser
@@ -30,8 +35,8 @@ class SetCommand(BaseCommand):
     def handle(self, args: argparse.Namespace) -> None:
         meta = json.load(sys.stdin)
 
-        with closing(args.file):
-            document = load_document(args.file)
+        with args.file.open(mode="r+") as f:
+            document = load_document(f)
             document.meta = meta
 
-            overwrite_file(file=args.file, document=document)
+            overwrite_file(file=f, document=document)

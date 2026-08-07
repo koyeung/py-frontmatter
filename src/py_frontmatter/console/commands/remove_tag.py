@@ -1,9 +1,12 @@
 # SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
 #
 # SPDX-License-Identifier: Apache-2.0
-import argparse
 import logging
-from contextlib import closing
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import argparse
 
 from py_frontmatter.core import load_document, remove_item
 
@@ -20,25 +23,27 @@ class RemoveTagCommand(BaseCommand):
     name = "remove-tag"
     description = "Remove tag on document"
 
-    def register(self, subparsers) -> argparse.ArgumentParser:
+    def register(
+        self, subparsers: argparse._SubParsersAction[argparse.ArgumentParser]
+    ) -> argparse.ArgumentParser:
         parser = super().register(subparsers)
         parser.add_argument(
             "file",
-            type=argparse.FileType(mode="r+"),
+            type=Path,
             help="document file",
         )
         parser.add_argument("--tag", type=str, help="tag to remove", required=True)
         return parser
 
-    def handle(self, args: argparse.Namespace):
+    def handle(self, args: argparse.Namespace) -> None:
         LOGGER.debug("args=%s", args)
 
-        with closing(args.file):
-            document = load_document(args.file)
+        with args.file.open(mode="r+") as f:
+            document = load_document(f)
             document = remove_item(
                 document=document,
                 jsonpath=TAG_JSONPATH,
                 item=args.tag,
                 raise_if_unknown_jsonpath=False,
             )
-            overwrite_file(file=args.file, document=document)
+            overwrite_file(file=f, document=document)

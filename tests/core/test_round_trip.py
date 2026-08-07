@@ -30,7 +30,7 @@ tags: [a, b]
 """,
     ],
 )
-def test_round_trip__same_input_output(text):
+def test_round_trip__same_input_output(text: str) -> None:
     with io.StringIO(text) as buffer:
         document = load_document(buffer)
 
@@ -41,7 +41,7 @@ def test_round_trip__same_input_output(text):
         assert result == text
 
 
-def test_round_trip__no_frontmatter_input():
+def test_round_trip__no_frontmatter_input() -> None:
     text = """\
 hello world!"""
 

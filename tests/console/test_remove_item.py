@@ -1,12 +1,17 @@
 # SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
 #
 # SPDX-License-Identifier: Apache-2.0
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pathlib import Path
+
 import pytest
 
 from .conftest import run_console_script
 
 
-def test_remove_item(sample):
+def test_remove_item(sample: Path) -> None:
     run_console_script(
         "frontmatter",
         "remove-item",
@@ -30,7 +35,7 @@ text
     )
 
 
-def test_remove__item_not_exists(sample):
+def test_remove__item_not_exists(sample: Path) -> None:
     run_console_script(
         "frontmatter",
         "remove-item",
@@ -54,7 +59,7 @@ text
     )
 
 
-def test_remove__jsonpath_not_exists(sample):
+def test_remove__jsonpath_not_exists(sample: Path) -> None:
     with pytest.raises(RuntimeError) as exc:
         run_console_script(
             "frontmatter",

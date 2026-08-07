@@ -47,7 +47,7 @@ text
     return sample_file
 
 
-def run_console_script(name, *args):
+def run_console_script(name: str, *args: str) -> None:
     entry_point, *_ = entry_points(group="console_scripts", name=name)
     func = entry_point.load()
 

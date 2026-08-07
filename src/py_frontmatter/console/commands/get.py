@@ -1,10 +1,13 @@
 # SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
 #
 # SPDX-License-Identifier: Apache-2.0
-import argparse
 import json
 import shlex
-from contextlib import closing
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import argparse
 
 from py_frontmatter.core import load_document
 
@@ -17,9 +20,11 @@ class GetCommand(BaseCommand):
     name = "get"
     description = "Retrieve front matter as json string"
 
-    def register(self, subparsers) -> argparse.ArgumentParser:
+    def register(
+        self, subparsers: argparse._SubParsersAction[argparse.ArgumentParser]
+    ) -> argparse.ArgumentParser:
         parser = super().register(subparsers)
-        parser.add_argument("infile", type=argparse.FileType(), help="input file")
+        parser.add_argument("infile", type=Path, help="input file")
         parser.add_argument(
             "--sq",
             action="store_true",
@@ -28,8 +33,8 @@ class GetCommand(BaseCommand):
         return parser
 
     def handle(self, args: argparse.Namespace) -> None:
-        with closing(args.infile):
-            document = load_document(args.infile)
+        with args.infile.open(mode="r+") as f:
+            document = load_document(f)
 
         meta_json = json.dumps(document.meta)
 

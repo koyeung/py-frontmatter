@@ -1,10 +1,15 @@
 # SPDX-FileCopyrightText: 2023-present YEUNG King On <koyeung@gmail.com>
 #
 # SPDX-License-Identifier: Apache-2.0
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pathlib import Path
+
 from .conftest import run_console_script
 
 
-def test_add_item(sample):
+def test_add_item(sample: Path) -> None:
     run_console_script(
         "frontmatter",
         "add-item",
@@ -28,7 +33,7 @@ text
     )
 
 
-def test_add_item__item_exists(sample):
+def test_add_item__item_exists(sample: Path) -> None:
     run_console_script(
         "frontmatter",
         "add-item",
@@ -52,7 +57,7 @@ text
     )
 
 
-def test_add_item__jsonpath_not_exists(sample):
+def test_add_item__jsonpath_not_exists(sample: Path) -> None:
     run_console_script(
         "frontmatter",
         "add-item",

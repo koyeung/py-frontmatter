@@ -35,7 +35,6 @@ scripts.frontmatter = "py_frontmatter.console.application:main"
 
 [dependency-groups]
 dev = [
-  "mypy>=1.13",
   "pytest>=8.3.3",
   "pytest-cov>=5",
   "pytest-xdist>=3.6.1",
@@ -56,21 +55,21 @@ lint.select = [
   "ALL",
 ]
 lint.ignore = [
-  "ANN",    # let mypy do the checking
   "COM",    # let formatter do the checking
   "CPY001", # ok for Missing copyright notice at top of file
   "D",      # not much on doc style
 ]
 lint.per-file-ignores."**/tests/*" = [
-  "S", # ok for security for tests
+  "S101", # ok for assert
 ]
 lint.isort.known-first-party = [
   "src",
 ]
 lint.preview = false
 
-[tool.mypy]
-ignore_missing_imports = true
+[tool.ty]
+rules.missing-type-argument = "error"
+rules.possibly-unresolved-reference = "warn"
 
 [tool.coverage]
 run.branch = true
